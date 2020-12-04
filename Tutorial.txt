@@ -1,0 +1,12 @@
+Executar AnalisadorSemantico.exe atraves do prompt de comando (CMD)
+
+Em seguida irá mostrar algumas opções de testes em arquivos já prontos como exemplo
+Erro_Break.txt
+Erro_Continue.txt
+Erro_Tipo_Incompativel.txt
+Erro_Variavel_Duplicada.txt
+Erro_Variavel_Nao_Declarada.txt
+Teste_Erro.txt
+Teste_Ok.txt
+
+Ao anasilizar será verificado se possui algum erro lexico/sintatico, se possuir será mostrado contendo a posição dele.
