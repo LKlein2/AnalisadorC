@@ -80,7 +80,7 @@ int  posParserLex = 0;
 int  token = 0;
 int  doWhile = 0;
 int  laco = 0;
-
+// Teste
 int PROGC();
 
 int LD();
