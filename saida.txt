@@ -1,0 +1,40 @@
+	T000 = 0
+	i = T000
+LB006:
+	T001 = 10
+	T002 = i < T001
+	if T002 == 0 goto LB007
+	T003 = 0
+	i = T003
+LB004:
+	T004 = 10
+	T005 = i < T004
+	if T005 == 0 goto LB005
+	T006 = a + b
+	t = T006
+	a = b
+	T007 = 1
+	T008 = t % T007
+	b = T008
+	T009 = i == i
+	if T009==0 goto LB001
+LB001:
+	T004 = 10
+	goto LB004
+LB005:
+	T010 = i == i
+	if T010==0 goto LB002
+08
+	T009 = i == i
+	if T009==0 goto LB001
+LB001:
+	goto LB003
+LB002:
+ i
+	if T009==0 goto LB001
+LB001:
+LB003:
+	T001 = 10
+	goto LB006
+LB007:
+

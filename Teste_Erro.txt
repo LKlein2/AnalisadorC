@@ -1,5 +1,5 @@
 int main(){
-    int i;
+    int i, v;
     int cont=0;
-    int v;
-    i++;
+    
+    

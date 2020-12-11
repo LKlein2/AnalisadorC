@@ -1,8 +1,10 @@
 int main(){
     int cont=0;
     int v;
-    i++;
+    
     for (i=0;i<10;i=i+1)
+    {
         if (v>v)
             cont=cont+1;
+    }
 }

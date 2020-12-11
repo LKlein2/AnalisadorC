@@ -1,16 +1,16 @@
 int main(){
     int a=0;
-    int b=1;
+    float b=1.5;
     int t,i;
     
     for (i=0;i<10;i++)
     {
-    	int i;
 	    for (i=0;i<10;i++)
 	    {
 	        t=a+b;
 	        a=b;
-	        b=t%1;
+	        t=t%b;
+	        
 	        if (i==i) break;
 	        else      continue;
 	    }

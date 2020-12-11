@@ -1,0 +1,13 @@
+int main(){
+    int cc = 1;
+
+    int aa = 1;
+    for(aa = 0; aa < 1; aa++){
+        int bb = 2;
+        for(cc = 0; cc < 1; cc++){
+            int bb = 2;
+        }
+        int bb = 2;
+    }
+    int  bb = 2;
+}

@@ -2210,7 +2210,7 @@ int S12new(char * S12line_h, char * S12line_s, char * S12line_hp, char * S12line
       if (!strcmp(S12line_h, "int") && !strcmp(S13_tp, "int"))
         strcpy(S12linS2_h, "int");
       else {
-        printf("An error occurred. >> % << invalid");
+        printf("An error occurred. >> %% << invalid");
         exit(0);
       }
       geratemp(S12linS2_hp);
@@ -2400,7 +2400,6 @@ int main() {
         strcpy(file, "Teste_Ok.txt");
         choice = 0;
         break;
-
       }
     } while ((choice < 0) || (choice > 7));
   } while (choice != 0);
@@ -2447,13 +2446,25 @@ int main() {
   posParserLex = 0;
   readToken();
 
+  FILE *saida;
+  saida = fopen("saida.txt", "w+");
+
   if (PROGC(PROGC_c)) {
     printf("%s", PROGC_c);
     printf("Semantic analysis finished succesfully\n");
+
+	fprintf(saida, "%s", PROGC_c);
+	fclose(saida);
+
     getchar();
   } else {
     printf("Errors occurred during semantic analysis\n");
+
+    remove("saida.txt");
+
     getchar();
   }
+
+
   return 0;
 }

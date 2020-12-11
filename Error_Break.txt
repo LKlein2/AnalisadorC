@@ -5,16 +5,13 @@ int main(){
     
     for (i=0;i<10;i++)
     {
-    	int i;
 	    for (i=0;i<10;i++)
 	    {
 	        t=a+b;
 	        a=b;
-	        b=t%1;
-	        if (i==i) break;
-	        else      continue;
+	        b=t;
+	        break;
 	    }
-		if (i==i) break;
-        else      continue;
 	}
+	break;
 }
