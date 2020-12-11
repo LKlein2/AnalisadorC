@@ -1,78 +1,78 @@
+#define TKN_ID 1
+#define TKN_VOID 2
+#define TKN_INT 4
+#define TKN_FLOAT 6
+#define TKN_DOUBLE 7
+#define TKN_CHAR 69
+#define TKN_BREAK 10
+#define TKN_IF 11
+#define TKN_ELSE 12
+#define TKN_WHILE 13
+#define TKN_DO 14
+#define TKN_FOR 15
+#define TKN_SWITCH 16
+#define TKN_CASE 17
+#define TKN_CONTINUE 18
+#define TKN_RETURN 25
+#define TKN_A_PAR 34
+#define TKN_F_PAR 35
+#define TKN_A_CHAVE 36
+#define TKN_F_CHAVE 37
+#define TKN_A_CON 38
+#define TKN_F_CON 39
+#define TKN_PONTO_VIRG 40
+#define TKN_DOIS_PONTOS 41
+#define TKN_VIRGULA 42
+#define TKN_ATRIBUICAO 43
+#define TKN_SOMA 44
+#define TKN_DIMINUI 45
+#define TKN_MULTIPLICA 46
+#define TKN_DIVIDE 47
+#define TKN_RESTO_DIVISAO 48
+#define TKN_COMP_MAIOR 49
+#define TKN_COMP_MENOR 50
+#define TKN_MENOS_IGUAL 52
+#define TKN_MAIS_IGUAL 53
+#define TKN_MULTIPLICA_IGUAL 54
+#define TKN_DIVIDE_IGUAL 55
+#define TKN_COMP_MAIOR_IGUAL 57
+#define TKN_COMP_MENOR_IGUAL 58
+#define TKN_DECREMENT 59
+#define TKN_INCREMENT 60
+#define TKN_COMP_IGUAL 61
+#define TKN_COMP_DIF 62
+#define TKN_NEGACAO 63
+#define TKN_TERNARIO 64
+#define TKN_SHIFT_LEFT 65
+#define TKN_SHIFT_RIGHT 66
+#define TKN_OR 67
+#define TKN_AND 68
+#define TKN_LOGICAL_AND 70
+#define TKN_LOGICAL_OR 71
+#define TKN_XOR 72
+#define TKN_CONST_INT 80
+#define TKN_CONST_FLOAT 81
+#define TKN_CONST_OCTAL 82
+#define TKN_CONST_HEX 83
+#define TKN_ERROR_E 100
+#define TKN_ERROR_CONST_FLOAT 101
+#define TKN_ERROR_OU 102
+#define TKN_ERROR_AND 103
+#define TKN_ERROR_CONST_HEX 104
+#define MAX_COD 1000
+
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
 
-#define TK_Id 1
-#define TK_Void 2
-#define TK_Int 4
-#define TK_Float 6
-#define TK_Double 7
-#define TK_Char 69
-#define TK_Break 10
-#define TK_If 11
-#define TK_Else 12
-#define TK_While 13
-#define TK_Do 14
-#define TK_For 15
-#define TK_Switch 16
-#define TK_Case 17
-#define TK_Continue 18
-#define TK_Return 25
-#define TK_AbrePar 34
-#define TK_FechaPar 35
-#define TK_AbreChave 36
-#define TK_FechaChave 37
-#define TK_AbreColchete 38
-#define TK_FechaColchete 39
-#define TK_PontoeVirg 40
-#define TK_DoisPontos 41
-#define TK_Virgula 42
-#define TK_Atrib 43
-#define TK_Mais 44
-#define TK_Menos 45
-#define TK_Multiplicacao 46
-#define TK_Divisao 47
-#define TK_RestoDivisao 48
-#define TK_Maior 49
-#define TK_Menor 50
-#define TK_MenosIgual 52
-#define TK_MaisIgual 53
-#define TK_MultiplicacaoIgual 54
-#define TK_DivisaoIgual 55
-#define TK_ComparadorMaiorIgual 57
-#define TK_ComparadorMenorIgual 58
-#define TK_MenosMenos 59
-#define TK_MaisMais 60
-#define TK_ComparadorIgual 61
-#define TK_ComparadorDiferente 62
-#define TK_Negacao 63
-#define TK_Ternario 64
-#define TK_ShiftLeft 65
-#define TK_ShiftRight 66
-#define TK_OU 67
-#define TK_AND 68
-#define TK_ELogico 70
-#define TK_OULogico 71
-#define TK_XOR 72
-#define TK_ConstInt 80
-#define TK_ConstFloat 81
-#define TK_ConstOctal 82
-#define TK_ConstHexa 83
-#define TK_ErroE 100
-#define TK_ErroConstFloat 101
-#define TK_ErroOU 102
-#define TK_ErroAND 103
-#define TK_ErroConstHexa 104
-#define MAX_COD 1000
-
 char TKsParserLex[1000][20];
 char lex[10];
 int pos = 0;
-int estado_anterior = 0;
-int posColuna = 0;
-int subColuna = 0;
-int linha = 0;
-int coluna = 0;
+int previousState = 0;
+int positionCol = 0;
+int subcolumn = 0;
+int line = 0;
+int column = 0;
 int tab = 0;
 int TKsParser[1000];
 int posParser = 0;
@@ -80,2599 +80,2380 @@ int posParserLex = 0;
 int token = 0;
 int doWhile = 0;
 int laco = 0;
-// Teste
-int PROGC();
 
-int LD();
+typedef struct TS {
+  int identificadorEscopo;
+  char id[10];
+  char type[10];
+  struct TS * prox;
+}
+table;
+table * ts;
 
-int RLD();
-
-int DEC();
-
-int RDEC();
-
-int DV(char* DV_t);
-
-int RDV(char* RDV_t);
-
-int TIPO(char* Tipo_t);
-
-int DF();
-
-int LP();
-
-int RLP();
-
-int CORPO();
-
-int LCD();
-
-int COM(char* COM_c);
-
-int COMIF(char* COMIF_c);
-
-int RIF(char* RIF_c);
-
-int COMFOR(char* COMFOR_c);
-
-int RFOR(char* RFOR_c);
-
-int EIF(char* EIF_c, char* EIF_p);
-
-int COMWHILE(char* COMWHILE_c);
-
-int RWHILE(char* RWHILE_c);
-
-int COMDOWHILE(char* COMDOWHILE_c);
-
-int RDOWHILE(char* RDOWHILE_c);
-
-int E(char* E_tp, char* E_p, char* E_c);
-
-int ELinha(char* ELinha_h, char* ELinha_s, char* ELinha_p, char* ELinha_hp, char* ELinha_sp, char* ELinha_c, char* ELinha_hc, char* ELinha_sc);
-
-int E1(char* E1_tp, char* E1_h, char* E1_s, char* E1_p, char* E1_c);
-
-int E2(char* E2_tp, char* E2_h, char* E2_s, char* E2_p, char* E2_c);
-
-int E2Linha(char* E2Linha_h, char* E2Linha_s, char* E2Linha_hp, char* E2Linha_sp, char* E2Linha_hc, char* E2Linha_sc);
-
-int E3(char* E3_tp, char* E3_p, char* E3_c);
-
-int E3Linha(char* E3Linha_h, char* E3Linha_s, char* E3Linha_hp, char* E3Linha_sp, char* E3Linha_hc, char* E3Linha_sc);
-
-int E4(char* E4_tp, char* E4_p, char* E4_c);
-
-int E4Linha(char* E4Linha_h, char* E4Linha_s, char* E4Linha_hp, char* E4Linha_sp, char* E4Linha_hc, char* E4Linha_sc);
-
-int E5(char* E5_tp, char* E5_p, char* E5_c);
-
-int E5Linha(char* E5Linha_h, char* E5Linha_s, char* E5Linha_hp, char* E5Linha_sp, char* E5Linha_hc, char* E5Linha_sc);
-
-int E6(char* E6_tp, char* E6_p, char* E6_c);
-
-int E6Linha(char* E6Linha_h, char* E6Linha_s, char* E6Linha_hp, char* E6Linha_sp, char* E6Linha_hc, char* E6Linha_sc);
-
-int E7(char* E7_tp, char* E7_p, char* E7_c);
-
-int E7Linha(char* E7Linha_h, char* E7Linha_s, char* E7Linha_hp, char* E7Linha_sp, char* E7Linha_hc, char* E7Linha_sc);
-
-int E8(char* E8_tp, char* E8_p, char* E8_c);
-
-int E8Linha(char* E8Linha_h, char* E8Linha_s, char* E8Linha_hp, char* E8Linha_sp, char* E8Linha_hc, char* E8Linha_sc);
-
-int E9(char* E9_tp, char* E9_p, char* E9_c);
-
-int E9Linha(char* E9Linha_h, char* E9Linha_s, char* E9Linha_hp, char* E9Linha_sp, char* E9Linha_hc, char* E9Linha_sc);
-
-int E10(char* E10_tp, char* E10_p, char* E10_c);
-
-int E10Linha(char* E10Linha_h, char* E10Linha_s, char* E10Linha_hp, char* E10Linha_sp, char* E10Linha_hc, char* E10Linha_sc);
-
-int E11(char* E11_tp, char* E11_p, char* E11_c);
-
-int E11Linha(char* E11Linha_h, char* E11Linha_s, char* E11Linha_hp, char* E11Linha_sp, char* E11Linha_hc, char* E11Linha_sc);
-
-int E12(char* E12_tp, char* E12_p, char* E12_c);
-
-int E12Linha(char* E12Linha_h, char* E12Linha_s, char* E12Linha_hp, char* E12Linha_sp, char* E12Linha_hc, char* E12Linha_sc);
-
-int E13(char* E13_tp, char* E13_p, char* E13_c);
-
-int E14(char* E14_tp, char* E14_p, char* E14_c);
-
-int RE();
-
-struct pal_res
-{
-    char palavra[20];
-    int token;
+struct reservedWord {
+  char palavra[20];
+  int token;
 };
 
-struct pal_res lista_pal[] = {
-    { "void",      TK_Void},
-    { "int",       TK_Int},
-    { "float",     TK_Float},
-    { "double",    TK_Double},
-    { "break",     TK_Break},
-    { "if",        TK_If},
-    { "else",      TK_Else},
-    { "while",     TK_While},
-    { "do",        TK_Do},
-    { "for",       TK_For},
-    { "switch",    TK_Switch},
-    { "case",      TK_Case},
-    { "continue",  TK_Continue},
-    { "return",    TK_Return},
-    { "fimtabela", TK_Id}
+struct reservedWord reservedWordList[] = {
+  {
+    "void",
+    TKN_VOID
+  },
+  {
+    "int",
+    TKN_INT
+  },
+  {
+    "float",
+    TKN_FLOAT
+  },
+  {
+    "double",
+    TKN_DOUBLE
+  },
+  {
+    "break",
+    TKN_BREAK
+  },
+  {
+    "if",
+    TKN_IF
+  },
+  {
+    "else",
+    TKN_ELSE
+  },
+  {
+    "while",
+    TKN_WHILE
+  },
+  {
+    "do",
+    TKN_DO
+  },
+  {
+    "for",
+    TKN_FOR
+  },
+  {
+    "switch",
+    TKN_SWITCH
+  },
+  {
+    "case",
+    TKN_CASE
+  },
+  {
+    "continue",
+    TKN_CONTINUE
+  },
+  {
+    "return",
+    TKN_RETURN
+  },
+  {
+    "fimtable",
+    TKN_ID
+  }
 };
 
-int palavra_reservada(char lex[])
-{
-    int postab = 0;
+int reservedWord(char lex[]) {
+  int postab = 0;
 
-    while (strcmp("fimtabela", lista_pal[postab].palavra) != 0)
-    {
-        if (strcmp(lex, lista_pal[postab].palavra) == 0) return lista_pal[postab].token;
-        postab++;
-    }
-    return TK_Id;
+  while (strcmp("fimtable", reservedWordList[postab].palavra) != 0) {
+    if (strcmp(lex, reservedWordList[postab].palavra) == 0)
+      return reservedWordList[postab].token;
+    postab++;
+  }
+  return TKN_ID;
 }
 
-int le_token(char st[], char lex[])
-{
-    int estado = 0, fim = 0, posl = 0;
-    posColuna = pos;
-
-    while (!fim)
-    {
-        char c = st[pos];
-
-        lex[posl++] = c;
-
-        switch (estado)
-        {
-            case 0:
-                if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || (c == '_'))
-                {
-                    pos++;
-                    estado = 1;
-                    estado_anterior = 0;
-                    break;
-                }
-
-                if (c >= '0' && c <= '9')
-                {
-                    if (c == '0')
-                    {
-                        pos++;
-                        estado = 8;
-                        estado_anterior = 0;
-                        break;
-                    }
-
-                    pos++;
-                    estado = 2;
-                    estado_anterior = 0;
-                    break;
-                }
-
-                if (c == '.')
-                {
-                    pos++;
-                    estado = 3;
-                    estado_anterior = 0;
-                    break;
-                }
-
-                if (c == '=')
-                {
-                    c = st[++pos];
-                    if (c == '=')
-                    {
-                        lex[posl++] = '=';
-                        lex[posl] = '\0';
-                        pos++;
-                        estado_anterior = 0;
-                        return TK_ComparadorIgual;
-                    }
-                    else
-                    {
-                        lex[posl] = '\0';
-                        return TK_Atrib;
-                    }
-                }
-
-                if (c == '!')
-                {
-                    c = st[++pos];
-                    if (c == '=')
-                    {
-                        lex[posl++] = '=';
-                        lex[posl] = '\0';
-                        pos++;
-                        estado_anterior = 0;
-                        return TK_ComparadorDiferente;
-                    }
-                    else
-                    {
-                        lex[posl] = '\0';
-                        return TK_Negacao;
-                    }
-                }
-
-                if (c == '?')
-                {
-                    lex[posl] = '\0';
-                    pos++;
-                    estado_anterior = 0;
-                    return TK_Ternario;
-                }
-
-                if (c == '+')
-                {
-                    c = st[++pos];
-
-                    if (c == '+')
-                    {
-                        lex[posl++] = '+';
-                        lex[posl] = '\0';
-                        pos++;
-                        estado_anterior = 0;
-                        return TK_MaisMais;
-                    }
-                    else if (c == '=')
-                    {
-                        lex[posl++] = '=';
-                        lex[posl] = '\0';
-                        pos++;
-                        estado_anterior = 0;
-                        return TK_MaisIgual;
-                    }
-                    else
-                    {
-                        lex[posl] = '\0';
-                        return TK_Mais;
-                    }
-                }
-
-                if (c == '-')
-                {
-                    c = st[++pos];
-
-                    if (c == '-')
-                    {
-                        lex[posl++] = '-';
-                        lex[posl] = '\0';
-                        pos++;
-                        estado_anterior = 0;
-                        return TK_MenosMenos;
-                    }
-                    else if (c == '=')
-                    {
-                        lex[posl++] = '=';
-                        lex[posl] = '\0';
-                        pos++;
-                        estado_anterior = 0;
-                        return TK_MenosIgual;
-                    }
-                    else
-                    {
-                        lex[posl] = '\0';
-                        return TK_Menos;
-                    }
-                }
-
-                if (c == '*')
-                {
-                    c = st[++pos];
-
-                    if (c == '=')
-                    {
-                        lex[posl++] = '=';
-                        lex[posl] = '\0';
-                        pos++;
-                        estado_anterior = 0;
-                        return TK_MultiplicacaoIgual;
-                    }
-                    else
-                    {
-                        lex[posl] = '\0';
-                        return TK_Multiplicacao;
-                    }
-                }
-
-                if (c == '/')
-                {
-                    c = st[++pos];
-
-                    if (c == '=')
-                    {
-                        lex[posl++] = '=';
-                        lex[posl] = '\0';
-                        pos++;
-                        estado_anterior = 0;
-                        return TK_DivisaoIgual;
-                    }
-                    else
-                    {
-                        lex[posl] = '\0';
-                        return TK_Divisao;
-                    }
-                }
-
-                if (c == '%')
-                {
-                    c = st[++pos];
-
-                    lex[posl] = '\0';
-                    return TK_RestoDivisao;
-                }
-
-                if (c == '|')
-                {
-                    c = st[++pos];
-
-                    if (c == '|')
-                    {
-                        lex[posl++] = '|';
-                        lex[posl] = '\0';
-                        pos++;
-                        estado_anterior = 0;
-                        return TK_OU;
-                    }
-                    return TK_ErroOU;
-                }
-
-                if (c == '&')
-                {
-                    c = st[++pos];
-
-                    if (c == '&')
-                    {
-                        lex[posl++] = '&';
-                        lex[posl] = '\0';
-                        pos++;
-                        estado_anterior = 0;
-                        return TK_AND;
-                    }
-                    return TK_ErroAND;
-                }
-
-                if (c == '>')
-                {
-                    c = st[++pos];
-
-                    if (c == '=')
-                    {
-                        lex[posl++] = '=';
-                        lex[posl] = '\0';
-                        pos++;
-                        estado_anterior = 0;
-                        return TK_ComparadorMaiorIgual;
-                    }
-                    else if (c == '>')
-                    {
-                        lex[posl++] = '>';
-                        lex[posl] = '\0';
-                        pos++;
-                        estado_anterior = 0;
-                        return TK_ShiftRight;
-                    }
-                    else
-                    {
-                        lex[posl] = '\0';
-                        return TK_Maior;
-                    }
-                }
-
-                if (c == '<')
-                {
-                    c = st[++pos];
-
-                    if (c == '=')
-                    {
-                        lex[posl++] = '=';
-                        lex[posl] = '\0';
-                        pos++;
-                        estado_anterior = 0;
-                        return TK_ComparadorMenorIgual;
-                    }
-                    else if (c == '<')
-                    {
-                        lex[posl++] = '<';
-                        lex[posl] = '\0';
-                        pos++;
-                        estado_anterior = 0;
-                        return TK_ShiftLeft;
-                    }
-                    else
-                    {
-                        lex[posl] = '\0';
-                        return TK_Menor;
-                    }
-                }
-
-                if (c == '(')
-                {
-                    lex[posl] = '\0';
-                    pos++;
-                    estado_anterior = 0;
-                    return TK_AbrePar;
-                }
-
-                if (c == ')')
-                {
-                    lex[posl] = '\0';
-                    pos++;
-                    estado_anterior = 0;
-                    return TK_FechaPar;
-                }
-
-                if (c == '{')
-                {
-                    lex[posl] = '\0';
-                    pos++;
-                    estado_anterior = 0;
-                    return TK_AbreChave;
-                }
-
-                if (c == '}')
-                {
-                    lex[posl] = '\0';
-                    pos++;
-                    estado_anterior = 0;
-                    return TK_FechaChave;
-                }
-
-                if (c == '[')
-                {
-                    lex[posl] = '\0';
-                    pos++;
-                    estado_anterior = 0;
-                    return TK_AbreColchete;
-                }
-
-                if (c == ']')
-                {
-                    lex[posl] = '\0';
-                    pos++;
-                    estado_anterior = 0;
-                    return TK_FechaColchete;
-                }
-
-                if (c == ',')
-                {
-                    lex[posl] = '\0';
-                    pos++;
-                    estado_anterior = 0;
-                    return TK_Virgula;
-                }
-
-                if (c == ';')
-                {
-                    lex[posl] = '\0';
-                    pos++;
-                    estado_anterior = 0;
-                    return TK_PontoeVirg;
-                }
-
-                if (c == ':')
-                {
-                    lex[posl] = '\0';
-                    pos++;
-                    estado_anterior = 0;
-                    return TK_DoisPontos;
-                }
-
-                if (c == ' ' || c == '\n')
-                {
-                    pos++;
-                    posl--;
-                    posColuna = pos;
-                }
-
-                if (c == 127)
-                {
-                    pos++;
-                    posl--;
-                    linha++;
-                    subColuna = pos;
-                    posColuna = pos;
-                }
-
-                if (c == 9)
-                {
-                    tab++;
-                    pos++;
-                    posColuna = pos;
-                    posl--;
-                    subColuna -= 3;
-                }
-
-                if (c == '\0') return -1;
-
-                break;
-            case 1:
-                if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || (c == '_') || (c >= '0' && c <= '9'))
-                {
-                    pos++;
-                    break;
-                }
-
-                lex[--posl] = '\0';
-                estado_anterior = 1;
-                return palavra_reservada(lex);
-            case 2:
-                if (c >= '0' && c <= '9')
-                {
-                    pos++;
-                    break;
-                }
-
-                if (c == '.')
-                {
-                    pos++;
-                    estado = 3;
-                    estado_anterior = 2;
-                    break;
-                }
-
-                if (c == 'E')
-                {
-                    pos++;
-                    estado = 4;
-                    estado_anterior = 2;
-                    break;
-                }
-
-                lex[--posl] = '\0';
-                estado_anterior = 2;
-                return TK_ConstInt;
-            case 3:
-                if (c >= '0' && c <= '9')
-                {
-                    pos++;
-                    estado = 7;
-                    break;
-                }
-                else
-                {
-                    return TK_ErroConstFloat;
-                }
-            case 4:
-                if (c >= '0' && c <= '9')
-                {
-                    pos++;
-                    estado = 6;
-                    break;
-                }
-                else if (c == '-' || c == '+')
-                {
-                    pos++;
-                    estado = 5;
-                    break;
-                }
-                return TK_ErroE;
-            case 5:
-                if (c >= '0' && c <= '9')
-                {
-                    pos++;
-                    estado = 6;
-                    break;
-                }
-                return TK_ErroE;
-            case 6:
-                if (c >= '0' && c <= '9')
-                {
-                    pos++;
-                    break;
-                }
-                if (estado_anterior == 2)
-                {
-                    lex[--posl] = '\0';
-                    estado_anterior = 6;
-                    return TK_ConstInt;
-                }
-                else
-                {
-                    lex[--posl] = '\0';
-                    estado_anterior = 6;
-                    return TK_ConstFloat;
-                }
-            case 7:
-                if (c >= '0' && c <= '9')
-                {
-                    pos++;
-                    break;
-                }
-                if (c == 'E')
-                {
-                    pos++;
-                    estado = 4;
-                    estado_anterior = 7;
-                    break;
-                }
-                lex[--posl] = '\0';
-                estado_anterior = 7;
-                return TK_ConstFloat;
-            case 8:
-                if (c >= '0' && c <= '9')
-                {
-                    pos++;
-                    break;
-                }
-                if (c == 'x' || c == 'X')
-                {
-                    pos++;
-                    estado = 9;
-                    estado_anterior = 8;
-                    break;
-                }
-                lex[--posl] = '\0';
-                return TK_ConstInt;
-            case 9:
-                if (c >= '0' && c <= '9')
-                {
-                    pos++;
-                    estado_anterior = 9;
-                    break;
-                }
-                else
-                {
-                    if (estado_anterior == 8) return TK_ErroConstHexa;
-                }
-                lex[--posl] = '\0';
-                return TK_ConstInt;
-        }
-    }
-}
-
-void leToken()
-{
-    token = TKsParser[posParser++];
-    linha = TKsParser[posParser++];
-    coluna = TKsParser[posParser++];
-    strcpy(lex, TKsParserLex[posParserLex++]);
-}
-
-typedef struct TS
-{
-    char id[10];
-    char tipo[10];
-    struct TS *prox;
-}
-tabela;
-
-tabela* ts;
-
-void addTabelaSimbolos(char* id, char* tipo)
-{
-    tabela* aux = (tabela*)malloc(sizeof(tabela));
-    strcpy(aux->id, id);
-    strcpy(aux->tipo, tipo);
-    aux->prox = ts;
-    ts = aux;
-}
-
-int verificaDuplicacao(char* lex, tabela* tab)
-{
-    if (tab == NULL) return 1;
-
-    if (!strcmp(tab->id, lex))
-    {
-        printf("Variable %s was already declared\n", lex);
-        printf("Error occured on line %d, column %d", linha, coluna);
-        exit(0);
-    }
-
-    return verificaDuplicacao(lex, tab->prox);
-}
-
-void consultaTipo(char* id, char* Tipo, tabela* tab)
-{
-    if (tab == NULL)
-        return;
-
-    if (!strcmp(tab->id, id))
-    {
-        strcpy(Tipo, tab->tipo);
-    }
-    consultaTipo(id, Tipo, tab->prox);
-}
-
-int PROGC()
-{
-    if (LD())
-    {
-        return 1;
-    }
-    else return 0;
-}
-
-int LD()
-{
-    if (DEC())
-    {
-        if (RLD())
-        {
-            return 1;
-        }
-        else return 0;
-    }
-    else return 0;
-}
-
-int RLD(char* RLD_c)
-{
-    char LD_c[MAX_COD];
-
-    if (LD(LD_c))
-    {
-        strcpy(RLD_c, LD_c);
-        return 1;
-    }
-    else return 1;
-}
-
-int DEC()
-{
-    char RDEC_t[10], Tipo_t[10];
-
-    if (TIPO(Tipo_t))
-    {
-        strcpy(RDEC_t, Tipo_t);
-        if (token == TK_Id)
-        {
-            if (verificaDuplicacao(lex, ts)) addTabelaSimbolos(lex, Tipo_t);
-            leToken();
-            if (RDEC(RDEC_t))
-            {
-                return 1;
-            }
-            else return 0;
-        }
-        else
-        {
-            printf("Error: expecting token 'id' on line %d column %d\n", linha, coluna);
-            return 0;
-        }
-    }
-    else return 0;
-}
-
-int RDEC()
-{
-    char DF_c[MAX_COD];
-
-    char DV_t[10];
-    if (token == TK_Virgula)
-    {
-        leToken();
-        if (DV(DV_t)) return 1;
-        else return 0;
-    }
-    else if (token == TK_AbrePar)
-    {
-        leToken();
-        if (DF(DF_c))
-        {
-            return 1;
-        }
-        else return 0;
-    }
-    else if (token == TK_PontoeVirg)
-    {
-        leToken();
-        return 1;
-    }
-    else if (token == TK_Atrib)
-    {
-        leToken();
-        if (token == TK_ConstInt)
-        {
-            leToken();
-            if (token == TK_PontoeVirg)
-            {
-                leToken();
-                return 1;
-            }
-            else
-            {
-                printf("Error: expecting token ';' on line %d column %d\n", linha, coluna);
-                return 0;
-            }
-        }
-        else
-        {
-            printf("Error: expecting token contante inteira on line %d column %d\n", linha, coluna);
-            return 0;
-        }
-    }
-    else
-    {
-        printf("Error: expecting token ';', ')' ou ',' on line %d column %d\n", linha, coluna);
-        return 0;
-    }
-}
-
-int DV(char* DV_t)
-{
-    char RDV_t[10];
-    if (token == TK_Id)
-    {
-        strcpy(RDV_t, DV_t);
-        if (verificaDuplicacao(lex, ts)) addTabelaSimbolos(lex, DV_t);
-        leToken();
-        if (RDV(RDV_t)) return 1;
-        else return 0;
-    }
-    else
-    {
-        printf("Error: expecting token 'id' on line %d column %d\n", linha, coluna);
-        return 0;
-    }
-}
-
-int RDV(char* RDV_t)
-{
-    char DV_t[10];
-    if (token == TK_Virgula)
-    {
-        strcpy(DV_t, RDV_t);
-        leToken();
-        if (DV(DV_t)) return 1;
-        else return 0;
-    }
-    else if (token == TK_PontoeVirg)
-    {
-        leToken();
-        return 1;
-    }
-    else
-    {
-        printf("Error: expecting token ',' ou ';' on line %d column %d\n", linha, coluna);
-        return 0;
-    }
-}
-
-int TIPO(char* Tipo_t)
-{
-    if ((token == TK_Char) || (token == TK_Int) || (token == TK_Float))
-    {
-        switch (token)
-        {
-            case TK_Char:
-                strcpy(Tipo_t, "char");
-                break;
-            case TK_Int:
-                strcpy(Tipo_t, "int");
-                break;
-            case TK_Float:
-                strcpy(Tipo_t, "float");
-                break;
-            case TK_Double:
-                strcpy(Tipo_t, "double");
-                break;
-        }
-        leToken();
-        return 1;
-    }
-    else
-    {
-        return 0;
-    }
-}
-
-int DF()
-{
-
-    if (LP())
-    {
-        if (token == TK_FechaPar)
-        {
-            leToken();
-            if (token == TK_AbreChave)
-            {
-                leToken();
-                if (CORPO())
-                {
-                    if (token == TK_FechaChave)
-                    {
-                        leToken();
-                        return 1;
-                    }
-                    else
-                    {
-                        printf("Error: expecting token '}' on line %d column %d\n", linha, coluna);
-                        return 0;
-                    }
-                }
-                else return 0;
-            }
-            else
-            {
-                printf("Error: expecting token '{' on line %d column %d\n", linha, coluna);
-                return 0;
-            }
-        }
-        else
-        {
-            printf("Error: expecting token ')' on line %d column %d\n", linha, coluna);
-            return 0;
-        }
-    }
-    else return 0;
-}
-
-int LP()
-{
-    char TIPO_t[10];
-
-    if (TIPO(TIPO_t))
-    {
-        if (token == TK_Id)
-        {
-            if (verificaDuplicacao(lex, ts))
-                addTabelaSimbolos(lex, TIPO_t);
-            leToken();
-            if (RLP()) return 1;
-            else return 0;
-        }
-        else
-        {
-            printf("Error: expecting token 'id' on line %d column %d\n", linha, coluna);
-            return 0;
-        }
-    }
-    else return 1;
-}
-
-int RLP()
-{
-    char TIPO_t[10];
-
-    if (token == TK_Virgula)
-    {
-        leToken();
-        if (TIPO(TIPO_t))
-        {
-            if (token == TK_Id)
-            {
-                if (verificaDuplicacao(lex, ts)) addTabelaSimbolos(lex, TIPO_t);
-                leToken();
-                if (RLP()) return 1;
-                else return 0;
-            }
-            else
-            {
-                printf("Error: expecting token 'id' on line %d column %d\n", linha, coluna);
-                return 0;
-            }
-        }
-        else return 0;
-    }
-    else return 1;
-}
-
-int CORPO()
-{
-    if (LCD())
-    {
-        return 1;
-    }
-    else
-    {
-        return 0;
-    }
-}
-
-int LCD()
-{
-    char DV_t[10], TIPO_t[10], COM_c[MAX_COD];
-
-    if (COM(COM_c))
-    {
-        if (LCD())
-        {
-            return 1;
-        }
-        else
-        {
-            return 0;
-        }
-    }
-    else if (TIPO(TIPO_t))
-    {
-        strcpy(DV_t, TIPO_t);
-        if (DV(DV_t))
-        {
-            if (LCD())
-            {
-                return 1;
-            }
-            else
-            {
-                return 0;
-            }
-        }
-        else
-        {
-            return 0;
-        }
-    }
-    else return 1;
-}
-
-int COM(char* COM_c)
-{
-    char TIPO_t[10], E_tp[10], E_p[10], E_c[MAX_COD], LCD_c[MAX_COD], RDEC_c[MAX_COD];
-    char COMWHILE_c[MAX_COD], COMFOR_c[MAX_COD], COMDOWHILE_c[MAX_COD], COMIF_c[MAX_COD];
-
-    if (E(E_tp, E_p, E_c))
-    {
-        if (token == TK_PontoeVirg)
-        {
-            strcpy(COM_c, E_c);
-            leToken();
-            return 1;
-        }
-        else
-        {
-            printf("Error: expecting token ';' on line %d column %d\n", linha, coluna);
-            return 0;
-        }
-    }
-    else if (COMWHILE(COMWHILE_c))
-    {
-        strcpy(COM_c, COMWHILE_c);
-        return 1;
-    }
-    else if (COMDOWHILE(COMDOWHILE_c))
-    {
-        strcpy(COM_c, COMDOWHILE_c);
-        return 1;
-    }
-    else if (COMIF(COMIF_c))
-    {
-        strcpy(COM_c, COMIF_c);
-        return 1;
-    }
-    else if (COMFOR(COMFOR_c))
-    {
-        strcpy(COM_c, COMFOR_c);
-        return 1;
-    }
-    else if (token == TK_Return)
-    {
-        leToken();
-        if (token == TK_PontoeVirg)
-        {
-            leToken();
-            return 1;
-        }
-        else
-        {
-            printf("Error: expecting token ';' on line %d column %d\n", linha, coluna);
-            return 0;
-        }
-    }
-    else if (token == TK_Break)
-    {
-        if (laco == 0)
-        {
-            printf("Error: comando break fora de laco de repeticao");
-            exit(0);
-        }
-        leToken();
-        if (token == TK_PontoeVirg)
-        {
-            leToken();
-            return 1;
-        }
-        else
-        {
-            printf("Error: expecting token ';' on line %d column %d\n", linha, coluna);
-            return 0;
-        }
-    }
-    else if (token == TK_Continue)
-    {
-        if (laco == 0)
-        {
-            printf("Error: comando continue fora de laco de repeticao");
-            exit(0);
-        }
-        leToken();
-        if (token == TK_PontoeVirg)
-        {
-            leToken();
-            return 1;
-        }
-        else
-        {
-            printf("Error: expecting token ';' on line %d column %d\n", linha, coluna);
-            return 0;
-        }
-    }
-    else if (token == TK_AbreChave)
-    {
-        leToken();
-        if (LCD(LCD_c))
-        {
-            if (token == TK_FechaChave)
-            {
-                strcpy(COM_c, LCD_c);
-                leToken();
-                return 1;
-            }
-            else
-            {
-                printf("Error: expecting token '}' on line %d column %d\n", linha, coluna);
-                return 0;
-            }
-        }
-        else return 0;
-    }
-    else if (TIPO(TIPO_t))
-    {
-        if (token == TK_Id)
-        {
-            if (verificaDuplicacao(lex, ts)) addTabelaSimbolos(lex, TIPO_t);
-            leToken();
-            if (RDEC())
-            {
-                strcpy(COM_c, RDEC_c);
-                return 1;
-            }
-            else return 0;
-        }
-        else
-        {
-            printf("Error: expecting token 'id' on line %d column %d\n", linha, coluna);
-            return 0;
-        }
-    }
-    else
-    {
-        return 0;
-    }
-}
-
-int COMIF(char* COMIF_c)
-{
-    char E_tp[10], E_p[MAX_COD], E_c[MAX_COD], COM_c[MAX_COD];
-    char RIF_c[MAX_COD];
-
-    strcpy(RIF_c, "");
-
-    if (token == TK_If)
-    {
-        leToken();
-        if (token == TK_AbrePar)
-        {
-            leToken();
-            if (E(E_tp, E_p, E_c))
-            {
-                if (token == TK_FechaPar)
-                {
-                    leToken();
-                    if (COM(COM_c))
-                    {
-                        if (RIF(RIF_c))
-                        {
-                            return 1;
-                        }
-                        else return 0;
-                    }
-                    else return 0;
-                }
-                else
-                {
-                    printf("Error: expecting token ')' on line %d column %d\n", linha, coluna);
-                    return 0;
-                }
-            }
-            else return 0;
-        }
-        else
-        {
-            printf("Error: expecting token '(' on line %d column %d\n", linha, coluna);
-            return 0;
-        }
-    }
-    else
-    {
-        return 0;
-    }
-}
-
-int RIF(char* RIF_c)
-{
-    char COM_c[MAX_COD];
-
-    if (token == TK_Else)
-    {
-        leToken();
-        if (COM(COM_c))
-        {
-            strcpy(RIF_c, COM_c);
-            return 1;
-        }
-        else return 0;
-    }
-    else return 1;
-}
-
-int COMFOR(char* COMFOR_c)
-{
-    char COM_c[MAX_COD], RFOR_c[MAX_COD];
-    char EIF1_c[MAX_COD], EIF2_c[MAX_COD], EIF3_c[MAX_COD];
-    char EIF1_p[MAX_COD], EIF2_p[MAX_COD], EIF3_p[MAX_COD];
-
-    if (token == TK_For)
-    {
-        laco = 1;
-        leToken();
-        if (token == TK_AbrePar)
-        {
-            leToken();
-            if (EIF(EIF1_c, EIF1_p))
-            {
-                if (token == TK_PontoeVirg)
-                {
-                    leToken();
-                    if (EIF(EIF2_c, EIF2_p))
-                    {
-                        if (token == TK_PontoeVirg)
-                        {
-                            leToken();
-                            if (EIF(EIF3_c, EIF3_p))
-                            {
-                                if (token == TK_FechaPar)
-                                {
-                                    leToken();
-                                    if (COM(COM_c))
-                                    {
-                                        laco = 0;
-                                        if (RFOR(RFOR_c))
-                                        {
-                                            return 1;
-                                        }
-                                        else return 0;
-                                    }
-                                    else return 0;
-                                }
-                                else
-                                {
-                                    printf("Error: expecting token ')' on line %d column %d\n", linha, coluna);
-                                    return 0;
-                                }
-                            }
-                            else return 0;
-                        }
-                        else
-                        {
-                            printf("Error: expecting token ';' on line %d column %d\n", linha, coluna);
-                            return 0;
-                        }
-                    }
-                    else return 0;
-                }
-                else
-                {
-                    printf("Error: expecting token ';' on line %d column %d\n", linha, coluna);
-                    return 0;
-                }
-            }
-            else return 0;
-        }
-        else
-        {
-            printf("Error: expecting token '(' on line %d column %d\n", linha, coluna);
-            return 0;
-        }
-    }
-    else return 0;
-}
-
-int RFOR(char* RFOR_c)
-{
-    char COM_c[MAX_COD];
-
-    if (COM(COM_c))
-    {
-        strcpy(RFOR_c, COM_c);
-        return 1;
-    }
-    else return 1;
-}
-
-int EIF(char* EIF_c, char* EIF_p)
-{
-    char E_tp[10], E_p[MAX_COD], E_c[MAX_COD]; ;
-
-    if (E(E_tp, E_p, E_c))
-    {
-        strcpy(EIF_c, E_c);
-        strcpy(EIF_p, E_p);
-        return 1;
-    }
-    else return 1;
-}
-
-int COMWHILE(char* COMWHILE_c)
-{
-    char E_tp[10], E_p[MAX_COD], E_c[MAX_COD], COM_c[MAX_COD], RWHILE_c[MAX_COD];
-
-    if (token == TK_While && doWhile != 1)
-    {
-        laco = 1;
-        leToken();
-        if (token == TK_AbrePar)
-        {
-            leToken();
-            if (E(E_tp, E_p, E_c))
-            {
-                if (token == TK_FechaPar)
-                {
-                    leToken();
-                    if (COM(COM_c))
-                    {
-                        if (RWHILE(RWHILE_c))
-                        {
-                            laco = 0;
-                            return 1;
-                        }
-                        else return 0;
-                    }
-                    else return 0;
-                }
-                else
-                {
-                    printf("Error: expecting token ')' on line %d column %d\n", linha, coluna);
-                    return 0;
-                }
-            }
-            else return 0;
-        }
-        else
-        {
-            printf("Error: expecting token '(' on line %d column %d\n", linha, coluna);
-            return 0;
-        }
-    }
-    else
-    {
-        return 0;
-    }
-}
-
-int RWHILE(char* RWHILE_c)
-{
-    char COM_c[MAX_COD];
-
-    if (COM(COM_c))
-    {
-        strcpy(RWHILE_c, COM_c);
-        return 1;
-    }
-    else return 1;
-}
-
-int COMDOWHILE(char* COMDOWHILE_c)
-{
-    char E_tp[10], E_p[MAX_COD], E_c[MAX_COD], COM_c[MAX_COD], RDOWHILE_c[MAX_COD];
-
-    if (token == TK_Do)
-    {
-        laco = 1;
-        doWhile = 1;
-        leToken();
-        if (COM(COM_c))
-        {
-            if (RDOWHILE(RDOWHILE_c))
-            {
-                if (token == TK_While)
-                {
-                    leToken();
-                    if (token == TK_AbrePar)
-                    {
-                        leToken();
-                        if (E(E_tp, E_p, E_c))
-                        {
-                            if (token == TK_FechaPar)
-                            {
-                                leToken();
-                                if (token == TK_PontoeVirg)
-                                {
-                                    leToken();
-                                    doWhile = 0;
-                                    laco = 0;
-                                    return 1;
-                                }
-                                else
-                                {
-                                    printf("Error: expecting token ';' on line %d column %d\n", linha, coluna);
-                                }
-                            }
-                            else
-                            {
-                                printf("Error: expecting token ')' on line %d column %d\n", linha, coluna);
-                                return 0;
-                            }
-                        }
-                        else return 0;
-                    }
-                    else
-                    {
-                        printf("Error: expecting token '(' on line %d column %d\n", linha, coluna);
-                        return 0;
-                    }
-                }
-                else
-                {
-                    printf("Error: expecting token 'while' on line %d column %d\n", linha, coluna);
-                    return 0;
-                }
-            }
-            else return 0;
-        }
-        else return 0;
-    }
-    else
-    {
-        return 0;
-    }
-}
-
-int RDOWHILE(char* RDOWHILE_c)
-{
-    char COM_c[MAX_COD];
-
-    if (COM(COM_c))
-    {
-        strcpy(RDOWHILE_c, COM_c);
-        return 1;
-    }
-    else return 1;
-}
-
-int E(char* E_tp, char* E_p, char* E_c)
-{
-    char ELinha_h[10], ELinha_s[10], ELinha_c[MAX_COD], ELinha_p[10], ELinha_hp[10], ELinha_hc[MAX_COD], ELinha_sp[10], ELinha_sc[MAX_COD];
-    char E1_tp[10], E1_h[10], E1_s[10], E1_p[10], E1_c[MAX_COD];
-
-    if (E1(E1_tp, E1_h, E1_s, E1_p, E1_c))
-    {
-        strcpy(ELinha_h, E1_tp);
-        strcpy(ELinha_hp, E1_p);
-        strcpy(ELinha_hc, E1_c);
-        if (ELinha(ELinha_h, ELinha_s, ELinha_p, ELinha_hp, ELinha_sp, ELinha_c, ELinha_hc, ELinha_sc))
-        {
-            strcpy(E_tp, ELinha_s);
-            strcpy(E_p, ELinha_sp);
-            strcpy(E_c, ELinha_sc);
-            return 1;
-        }
-        else return 0;
-    }
-    else return 0;
-}
-
-int ELinha(char* ELinha_h, char* ELinha_s, char* ELinha_p, char* ELinha_hp, char* ELinha_sp, char* ELinha_c, char* ELinha_hc, char* ELinha_sc)
-{
-    char ELinha2_sp[10], ELinha2_sc[MAX_COD], ELinha2_hp[10], ELinha2_hc[MAX_COD];
-    char ELinha2_h[10], ELinha2_s[10], ELinha2_p[10], ELinha2_c[MAX_COD];
-    char E1_tp[10], E1_h[10], E1_s[10], E1_p[10], E1_c[MAX_COD];
-
-    if (token == TK_Virgula)
-    {
-        leToken();
-        if (E1(E1_tp, E1_h, E1_s, E1_p, E1_c))
-        {
-            strcpy(ELinha2_h, E1_tp);
-            if (ELinha(ELinha2_h, ELinha2_s, ELinha2_p, ELinha2_hp, ELinha2_sp, ELinha2_c, ELinha2_hc, ELinha2_sc))
-            {
-                strcpy(ELinha_s, ELinha2_s);
-                strcpy(ELinha_p, ELinha2_p);
-                sprintf(ELinha_c, "%s %s", E1_c, ELinha2_c);
-                return 1;
-            }
-            else return 0;
-        }
-        else return 0;
-    }
-    else
-    {
-        strcpy(ELinha_s, ELinha_h);
-        strcpy(ELinha_sp, ELinha_hp);
-        strcpy(ELinha_sc, ELinha_hc);
-        return 1;
-    }
-}
-
-int E1(char* E1_tp, char* E1_h, char* E1_s, char* E1_p, char* E1_c)
-{
-    char E1Linha_h[10], E1Linha_s[10], E1Linha_tp[10], E1Linha_p[10], E1Linha_c[MAX_COD];
-    char E2_tp[10], E2_h[10], E2_s[10], E2_p[10], E2_c[MAX_COD];
-
-    if (E2(E2_tp, E2_h, E2_s, E2_p, E2_c))
-    {
-        if (token == TK_Atrib)
-        {
-            strcpy(E1Linha_h, E2_tp);
-            leToken();
-            if (E1(E1Linha_tp, E1Linha_h, E1Linha_s, E1Linha_p, E1Linha_c))
-            {
-                strcpy(E1_tp, E1Linha_s);
-                strcpy(E1_p, E2_p);
-                sprintf(E1_c, "%s\t%s = %s\n", E1Linha_c, E2_p, E1Linha_p);
-                return 1;
-            }
-            else return 0;
-        }
-        else if (token == TK_MultiplicacaoIgual)
-        {
-            strcpy(E1Linha_h, E2_tp);
-            leToken();
-            if (E1(E1Linha_tp, E1Linha_h, E1Linha_s, E1Linha_p, E1Linha_c))
-            {
-                strcpy(E1_tp, E1Linha_s);
-                strcpy(E1_p, E2_p);
-                sprintf(E1_c, "%s\t%s = %s * %s\n", E1Linha_c, E2_p, E2_p, E1Linha_p);
-                return 1;
-            }
-            else return 0;
-        }
-        else if (token == TK_DivisaoIgual)
-        {
-            strcpy(E1Linha_h, E2_tp);
-            leToken();
-            if (E1(E1Linha_tp, E1Linha_h, E1Linha_s, E1Linha_p, E1Linha_c))
-            {
-                strcpy(E1_tp, E1Linha_s);
-                strcpy(E1_p, E2_p);
-                sprintf(E1_c, "%s\t%s = %s / %s\n", E1Linha_c, E2_p, E2_p, E1Linha_p);
-                return 1;
-            }
-            else return 0;
-        }
-        else if (token == TK_MaisIgual)
-        {
-            strcpy(E1Linha_h, E2_tp);
-            leToken();
-            if (E1(E1Linha_tp, E1Linha_h, E1Linha_s, E1Linha_p, E1Linha_c))
-            {
-                strcpy(E1_tp, E1Linha_s);
-                strcpy(E1_p, E2_p);
-                sprintf(E1_c, "%s\t%s = %s + %s\n", E1Linha_c, E2_p, E2_p, E1Linha_p);
-                return 1;
-            }
-            else return 0;
-        }
-        else if (token == TK_MenosIgual)
-        {
-            strcpy(E1Linha_h, E2_tp);
-            leToken();
-            if (E1(E1Linha_tp, E1Linha_h, E1Linha_s, E1Linha_p, E1Linha_c))
-            {
-                strcpy(E1_tp, E1Linha_s);
-                strcpy(E1_p, E2_p);
-                sprintf(E1_c, "%s\t%s = %s - %s\n", E1Linha_c, E2_p, E2_p, E1Linha_p);
-                return 1;
-            }
-            else return 0;
-        }
-        else
-        {
-            strcpy(E1_tp, E2_tp);
-            strcpy(E1_p, E2_p);
-            strcpy(E1_c, E2_c);
-            return 1;
-        }
-    }
-}
-
-int E2(char* E2_tp, char* E2_h, char* E2_s, char* E2_p, char* E2_c)
-{
-    char E2Linha_h[10], E2Linha_s[10], E2Linha_hp[10], E2Linha_sp[10], E2Linha_hc[MAX_COD], E2Linha_sc[MAX_COD];
-    char E3_tp[10], E3_p[10], E3_c[MAX_COD];
-
-    if (E3(E3_tp, E3_p, E3_c))
-    {
-        strcpy(E2Linha_h, E3_tp);
-        strcpy(E2Linha_hp, E3_p);
-        strcpy(E2Linha_hc, E3_c);
-        if (E2Linha(E2Linha_h, E2Linha_s, E2Linha_hp, E2Linha_sp, E2Linha_hc, E2Linha_sc))
-        {
-            strcpy(E2_tp, E2Linha_s);
-            strcpy(E2_p, E2Linha_sp);
-            strcpy(E2_c, E2Linha_sc);
-            return 1;
-        }
-        else return 0;
-    }
-    else return 0;
-}
-
-int E2Linha(char* E2Linha_h, char* E2Linha_s, char* E2Linha_hp, char* E2Linha_sp, char* E2Linha_hc, char* E2Linha_sc)
-{
-    char E2_tp[10], E2_h[10], E2_s[10], E2_p[10], E2_c[MAX_COD];
-    char E2Linha2_h[10], E2Linha2_s[10], E2Linha2_hp[10], E2Linha2_sp[10], E2Linha2_hc[MAX_COD], E2Linha2_sc[MAX_COD];
-
-    if (token == TK_Ternario)
-    {
-        leToken();
-        if (E2(E2_tp, E2_h, E2_s, E2_p, E2_c))
-        {
-            if (token == TK_DoisPontos)
-            {
-                leToken();
-                if (E2(E2_tp, E2_h, E2_s, E2_p, E2_c))
-                {
-                    if (E2Linha(E2Linha2_h, E2Linha2_s, E2Linha2_hp, E2Linha2_sp, E2Linha2_hc, E2Linha2_sc)) return 1;
-                    else return 0;
-                }
-                else return 0;
-            }
-            else
-            {
-                printf("Error: expecting token ':' on line %d column %d\n", linha, coluna);
-                return 0;
-            }
-        }
-        else return 0;
-    }
-    else
-    {
-        strcpy(E2Linha_s, E2Linha_h);
-        strcpy(E2Linha_sp, E2Linha_hp);
-        strcpy(E2Linha_sc, E2Linha_hc);
-        return 1;
-    }
-}
-
-int E3(char* E3_tp, char* E3_p, char* E3_c)
-{
-    char E3Linha_h[10], E3Linha_s[10], E3Linha_hp[10], E3Linha_sp[10], E3Linha_hc[MAX_COD], E3Linha_sc[MAX_COD];
-    char E4_tp[10], E4_p[10], E4_c[MAX_COD];
-
-    if (E4(E4_tp, E4_p, E4_c))
-    {
-        strcpy(E3Linha_h, E4_tp);
-        strcpy(E3Linha_hp, E4_p);
-        strcpy(E3Linha_hc, E4_c);
-        if (E3Linha(E3Linha_h, E3Linha_s, E3Linha_hp, E3Linha_sp, E3Linha_hc, E3Linha_sc))
-        {
-            strcpy(E3_tp, E3Linha_s);
-            strcpy(E3_p, E3Linha_sp);
-            strcpy(E3_c, E3Linha_sc);
-            return 1;
-        }
-        else return 0;
-    }
-    else return 0;
-}
-
-int E3Linha(char* E3Linha_h, char* E3Linha_s, char* E3Linha_hp, char* E3Linha_sp, char* E3Linha_hc, char* E3Linha_sc)
-{
-    char E3Linha2_h[10], E3Linha2_s[10], E3Linha2_hp[10], E3Linha2_sp[10], E3Linha2_hc[MAX_COD], E3Linha2_sc[MAX_COD];
-    char E4_tp[10], E4_p[10], E4_c[MAX_COD];
-
-    if (token == TK_OU)
-    {
-        leToken();
-        if (E4(E4_tp, E4_p, E4_c))
-        {
-            strcpy(E3Linha2_h, "int");
-            if (E3Linha(E3Linha2_h, E3Linha2_s, E3Linha2_hp, E3Linha2_sp, E3Linha2_hc, E3Linha2_sc))
-            {
-                strcpy(E3Linha_s, E3Linha2_s);
-                strcpy(E3Linha_sp, E3Linha2_sp);
-                strcpy(E3Linha_sc, E3Linha2_sc);
-                return 1;
-            }
-        }
-        else return 0;
-    }
-    else
-    {
-        strcpy(E3Linha_s, E3Linha_h);
-        strcpy(E3Linha_sp, E3Linha_hp);
-        strcpy(E3Linha_sc, E3Linha_hc);
-        return 1;
-    }
-}
-
-int E4(char* E4_tp, char* E4_p, char* E4_c)
-{
-    char E4Linha_h[10], E4Linha_s[10], E4Linha_hp[10], E4Linha_sp[10], E4Linha_hc[MAX_COD], E4Linha_sc[MAX_COD];
-    char E5_tp[10], E5_p[10], E5_c[MAX_COD];
-
-    if (E5(E5_tp, E5_p, E5_c))
-    {
-        strcpy(E4Linha_h, E5_tp);
-        strcpy(E4Linha_hp, E5_p);
-        strcpy(E4Linha_hc, E5_c);
-        if (E4Linha(E4Linha_h, E4Linha_s, E4Linha_hp, E4Linha_sp, E4Linha_hc, E4Linha_sc))
-        {
-            strcpy(E4_tp, E4Linha_s);
-            strcpy(E4_p, E4Linha_sp);
-            strcpy(E4_c, E4Linha_sc);
-            return 1;
-        }
-        else return 0;
-    }
-    else return 0;
-}
-
-int E4Linha(char* E4Linha_h, char* E4Linha_s, char* E4Linha_hp, char* E4Linha_sp, char* E4Linha_hc, char* E4Linha_sc)
-{
-    char E4Linha2_h[10], E4Linha2_s[10], E4Linha2_hp[10], E4Linha2_sp[10], E4Linha2_hc[MAX_COD], E4Linha2_sc[MAX_COD];
-    char E5_tp[10], E5_p[10], E5_c[MAX_COD];
-
-    if (token == TK_AND)
-    {
-        leToken();
-        if (E5(E5_tp, E5_p, E5_c))
-        {
-            strcpy(E4Linha2_h, "int");
-            if (E4Linha(E4Linha2_h, E4Linha2_s, E4Linha2_hp, E4Linha2_sp, E4Linha2_hc, E4Linha2_sc))
-            {
-                strcpy(E4Linha_s, E4Linha2_s);
-                strcpy(E4Linha_sp, E4Linha2_sp);
-                strcpy(E4Linha_sc, E4Linha2_sc);
-                return 1;
-            }
-            else return 0;
-        }
-        else return 0;
-    }
-    else
-    {
-        strcpy(E4Linha_s, E4Linha_h);
-        strcpy(E4Linha_sp, E4Linha_hp);
-        strcpy(E4Linha_sc, E4Linha_hc);
-        return 1;
-    }
-}
-
-int E5(char* E5_tp, char* E5_p, char* E5_c)
-{
-    char E6_tp[10], E6_p[10], E6_c[MAX_COD];
-    char E5Linha_h[10], E5Linha_s[10], E5Linha_hp[10], E5Linha_sp[10], E5Linha_hc[MAX_COD], E5Linha_sc[MAX_COD];
-
-    if (E6(E6_tp, E6_p, E6_c))
-    {
-        strcpy(E5Linha_h, E6_tp);
-        strcpy(E5Linha_hp, E6_p);
-        strcpy(E5Linha_hc, E6_c);
-        if (E5Linha(E5Linha_h, E5Linha_s, E5Linha_hp, E5Linha_sp, E5Linha_hc, E5Linha_sc))
-        {
-            strcpy(E5_tp, E5Linha_s);
-            strcpy(E5_p, E5Linha_sp);
-            strcpy(E5_c, E5Linha_sc);
-            return 1;
-        }
-        else return 0;
-    }
-    else return 0;
-}
-
-int E5Linha(char* E5Linha_h, char* E5Linha_s, char* E5Linha_hp, char* E5Linha_sp, char* E5Linha_hc, char* E5Linha_sc)
-{
-    char E6_tp[10], E6_p[10], E6_c[MAX_COD];
-    char E5Linha2_h[10], E5Linha2_s[10], E5Linha2_hp[10], E5Linha2_sp[10], E5Linha2_hc[MAX_COD], E5Linha2_sc[MAX_COD];
-
-    if (token == TK_OULogico)
-    {
-        leToken();
-        if (E6(E6_tp, E6_p, E6_c))
-        {
-            strcpy(E5Linha2_h, "int");
-            if (E5Linha(E5Linha2_h, E5Linha2_s, E5Linha2_hp, E5Linha2_sp, E5Linha2_hc, E5Linha2_sc))
-            {
-                strcpy(E5Linha_s, E5Linha2_s);
-                strcpy(E5Linha_sp, E5Linha2_sp);
-                strcpy(E5Linha_sc, E5Linha2_sc);
-                return 1;
-            }
-            else return 0;
-        }
-        else return 0;
-    }
-    else
-    {
-        strcpy(E5Linha_s, E5Linha_h);
-        strcpy(E5Linha_sp, E5Linha_hp);
-        strcpy(E5Linha_sc, E5Linha_hc);
-        return 1;
-    }
-}
-
-int E6(char* E6_tp, char* E6_p, char* E6_c)
-{
-    char E7_tp[10], E7_p[10], E7_c[MAX_COD];
-    char E6Linha_h[10], E6Linha_s[10], E6Linha_hp[10], E6Linha_sp[10], E6Linha_hc[MAX_COD], E6Linha_sc[MAX_COD];
-
-    if (E7(E7_tp, E7_p, E7_c))
-    {
-        strcpy(E6Linha_h, E7_tp);
-        strcpy(E6Linha_hp, E7_p);
-        strcpy(E6Linha_hc, E7_c);
-        if (E6Linha(E6Linha_h, E6Linha_s, E6Linha_hp, E6Linha_sp, E6Linha_hc, E6Linha_sc))
-        {
-            strcpy(E6_tp, E6Linha_s);
-            strcpy(E6_p, E6Linha_sp);
-            strcpy(E6_c, E6Linha_sc);
-            return 1;
-        }
-        else return 0;
-    }
-    else return 0;
-}
-
-int E6Linha(char* E6Linha_h, char* E6Linha_s, char* E6Linha_hp, char* E6Linha_sp, char* E6Linha_hc, char* E6Linha_sc)
-{
-    char E7_tp[10], E7_p[10], E7_c[MAX_COD];
-    char E6Linha2_h[10], E6Linha2_s[10], E6Linha2_hp[10], E6Linha2_sp[10], E6Linha2_hc[MAX_COD], E6Linha2_sc[MAX_COD];
-
-    if (token == TK_XOR)
-    {
-        leToken();
-        if (E7(E7_tp, E7_p, E7_c))
-        {
-            strcpy(E6Linha2_h, "int");
-            if (E6Linha(E6Linha2_h, E6Linha2_s, E6Linha2_hp, E6Linha2_sp, E6Linha2_hc, E6Linha2_sc))
-            {
-                strcpy(E6Linha_s, E6Linha2_s);
-                strcpy(E6Linha_sp, E6Linha2_sp);
-                strcpy(E6Linha_sc, E6Linha2_sc);
-                return 1;
-            }
-            else return 0;
-        }
-        else return 0;
-    }
-    else
-    {
-        strcpy(E6Linha_s, E6Linha_h);
-        strcpy(E6Linha_sp, E6Linha_hp);
-        strcpy(E6Linha_sc, E6Linha_hc);
-        return 1;
-    }
-}
-
-int E7(char* E7_tp, char* E7_p, char* E7_c)
-{
-    char E8_tp[10], E8_p[10], E8_c[MAX_COD];
-    char E7Linha_h[10], E7Linha_s[10], E7Linha_hp[10], E7Linha_sp[10], E7Linha_hc[MAX_COD], E7Linha_sc[MAX_COD];
-
-    if (E8(E8_tp, E8_p, E8_c))
-    {
-        strcpy(E7Linha_h, E8_tp);
-        strcpy(E7Linha_hp, E8_p);
-        strcpy(E7Linha_hc, E8_c);
-        if (E7Linha(E7Linha_h, E7Linha_s, E7Linha_hp, E7Linha_sp, E7Linha_hc, E7Linha_sc))
-        {
-            strcpy(E7_tp, E7Linha_s);
-            strcpy(E7_p, E7Linha_sp);
-            strcpy(E7_c, E7Linha_sc);
-            return 1;
-        }
-        else return 0;
-    }
-    else return 0;
-}
-
-int E7Linha(char* E7Linha_h, char* E7Linha_s, char* E7Linha_hp, char* E7Linha_sp, char* E7Linha_hc, char* E7Linha_sc)
-{
-    char E8_tp[10], E8_p[10], E8_c[MAX_COD];
-    char E7Linha2_h[10], E7Linha2_s[10], E7Linha2_hp[10], E7Linha2_sp[10], E7Linha2_hc[MAX_COD], E7Linha2_sc[MAX_COD];
-
-    if (token == TK_ELogico)
-    {
-        leToken();
-        if (E8(E8_tp, E8_p, E8_c))
-        {
-            strcpy(E7Linha2_h, "int");
-            if (E7Linha(E7Linha2_h, E7Linha2_s, E7Linha2_hp, E7Linha2_sp, E7Linha2_hc, E7Linha2_sc))
-            {
-                strcpy(E7Linha_s, E7Linha2_s);
-                strcpy(E7Linha_sp, E7Linha2_sp);
-                strcpy(E7Linha_sc, E7Linha2_sc);
-                return 1;
-            }
-            else return 0;
-        }
-        else return 0;
-    }
-    else
-    {
-        strcpy(E7Linha_s, E7Linha_h);
-        strcpy(E7Linha_sp, E7Linha_hp);
-        strcpy(E7Linha_sc, E7Linha_hc);
-        return 1;
-    }
-}
-
-int E8(char* E8_tp, char* E8_p, char* E8_c)
-{
-    char E9_tp[10], E9_p[10], E9_c[MAX_COD];
-    char E8Linha_h[10], E8Linha_s[10], E8Linha_hp[10], E8Linha_sp[10], E8Linha_hc[MAX_COD], E8Linha_sc[MAX_COD];
-
-    if (E9(E9_tp, E9_p, E9_c))
-    {
-        strcpy(E8Linha_h, E9_tp);
-        strcpy(E8Linha_hp, E9_p);
-        strcpy(E8Linha_hc, E9_c);
-        if (E8Linha(E8Linha_h, E8Linha_s, E8Linha_hp, E8Linha_sp, E8Linha_hc, E8Linha_sc))
-        {
-            strcpy(E8_tp, E8Linha_s);
-            strcpy(E8_p, E8Linha_sp);
-            strcpy(E8_c, E8Linha_sc);
-            return 1;
-        }
-        else return 0;
-    }
-    else return 0;
-}
-
-int E8Linha(char* E8Linha_h, char* E8Linha_s, char* E8Linha_hp, char* E8Linha_sp, char* E8Linha_hc, char* E8Linha_sc)
-{
-    char E9_tp[10], E9_p[10], E9_c[MAX_COD];
-    char E8Linha2_h[10], E8Linha2_s[10], E8Linha2_hp[10], E8Linha2_sp[10], E8Linha2_hc[MAX_COD], E8Linha2_sc[MAX_COD];
-
-    if (token == TK_ComparadorIgual)
-    {
-        leToken();
-        if (E9(E9_tp, E9_p, E9_c))
-        {
-            strcpy(E8Linha2_h, "int");
-            if (E8Linha(E8Linha2_h, E8Linha2_s, E8Linha2_hp, E8Linha2_sp, E8Linha2_hc, E8Linha2_sc))
-            {
-                strcpy(E8Linha_s, E8Linha2_s);
-                strcpy(E8Linha_sp, E8Linha2_sp);
-                strcpy(E8Linha_sc, E8Linha2_sc);
-                return 1;
-            }
-            else return 0;
-        }
-        else return 0;
-    }
-    else if (token == TK_ComparadorDiferente)
-    {
-        leToken();
-        if (E9(E9_tp, E9_p, E9_c))
-        {
-            strcpy(E8Linha2_h, "int");
-            if (E8Linha(E8Linha2_h, E8Linha2_s, E8Linha2_hp, E8Linha2_sp, E8Linha2_hc, E8Linha2_sc))
-            {
-                strcpy(E8Linha_s, E8Linha2_s);
-                strcpy(E8Linha_sp, E8Linha2_sp);
-                strcpy(E8Linha_sc, E8Linha2_sc);
-                return 1;
-            }
-            else return 0;
-        }
-        else return 0;
-    }
-    else
-    {
-        strcpy(E8Linha_s, E8Linha_h);
-        strcpy(E8Linha_sp, E8Linha_hp);
-        strcpy(E8Linha_sc, E8Linha_hc);
-        return 1;
-    }
-}
-
-int E9(char* E9_tp, char* E9_p, char* E9_c)
-{
-    char E10_tp[10], E10_p[10], E10_c[MAX_COD];
-    char E9Linha_h[10], E9Linha_s[10], E9Linha_hp[10], E9Linha_sp[10], E9Linha_hc[MAX_COD], E9Linha_sc[MAX_COD];
-
-    if (E10(E10_tp, E10_p, E10_c))
-    {
-        strcpy(E9Linha_h, E10_tp);
-        strcpy(E9Linha_hp, E10_p);
-        strcpy(E9Linha_hc, E10_c);
-        if (E9Linha(E9Linha_h, E9Linha_s, E9Linha_hp, E9Linha_sp, E9Linha_hc, E9Linha_sc))
-        {
-            strcpy(E9_tp, E9Linha_s);
-            strcpy(E9_p, E9Linha_sp);
-            strcpy(E9_c, E9Linha_sc);
-            return 1;
-        }
-        else return 0;
-    }
-    else return 0;
-}
-
-int E9Linha(char* E9Linha_h, char* E9Linha_s, char* E9Linha_hp, char* E9Linha_sp, char* E9Linha_hc, char* E9Linha_sc)
-{
-    char E10_tp[10], E10_p[10], E10_c[MAX_COD];
-    char E9Linha2_h[10], E9Linha2_s[10], E9Linha2_hp[10], E9Linha2_sp[10], E9Linha2_hc[MAX_COD], E9Linha2_sc[MAX_COD];
-
-    if (token == TK_Menor)
-    {
-        leToken();
-        if (E10(E10_tp, E10_p, E10_c))
-        {
-            strcpy(E9Linha2_h, "int");
-            if (E9Linha(E9Linha2_h, E9Linha2_s, E9Linha2_hp, E9Linha2_sp, E9Linha2_hc, E9Linha2_sc))
-            {
-                strcpy(E9Linha_s, E9Linha2_s);
-                strcpy(E9Linha_sp, E9Linha2_sp);
-                strcpy(E9Linha_sc, E9Linha2_sc);
-                return 1;
-            }
-            else return 0;
-        }
-        else return 0;
-    }
-    else if (token == TK_Maior)
-    {
-        leToken();
-        if (E10(E10_tp, E10_p, E10_c))
-        {
-            strcpy(E9Linha2_h, "int");
-            if (E9Linha(E9Linha2_h, E9Linha2_s, E9Linha2_hp, E9Linha2_sp, E9Linha2_hc, E9Linha2_sc))
-            {
-                strcpy(E9Linha_s, E9Linha2_s);
-                strcpy(E9Linha_sp, E9Linha2_sp);
-                strcpy(E9Linha_sc, E9Linha2_sc);
-                return 1;
-            }
-            else return 0;
-        }
-        else return 0;
-    }
-    else if (token == TK_ComparadorMenorIgual)
-    {
-        leToken();
-        if (E10(E10_tp, E10_p, E10_c))
-        {
-            strcpy(E9Linha2_h, "int");
-            if (E9Linha(E9Linha2_h, E9Linha2_s, E9Linha2_hp, E9Linha2_sp, E9Linha2_hc, E9Linha2_sc))
-            {
-                strcpy(E9Linha_s, E9Linha2_s);
-                strcpy(E9Linha_sp, E9Linha2_sp);
-                strcpy(E9Linha_sc, E9Linha2_sc);
-                return 1;
-            }
-            else return 0;
-        }
-        else return 0;
-    }
-    else if (token == TK_ComparadorMaiorIgual)
-    {
-        leToken();
-        if (E10(E10_tp, E10_p, E10_c))
-        {
-            strcpy(E9Linha2_h, "int");
-            if (E9Linha(E9Linha2_h, E9Linha2_s, E9Linha2_hp, E9Linha2_sp, E9Linha2_hc, E9Linha2_sc))
-            {
-                strcpy(E9Linha_s, E9Linha2_s);
-                strcpy(E9Linha_sp, E9Linha2_sp);
-                strcpy(E9Linha_sc, E9Linha2_sc);
-                return 1;
-            }
-            else return 0;
-        }
-        else return 0;
-    }
-    else
-    {
-        strcpy(E9Linha_s, E9Linha_h);
-        strcpy(E9Linha_sp, E9Linha_hp);
-        strcpy(E9Linha_sc, E9Linha_hc);
-        return 1;
-    }
-}
-
-int E10(char* E10_tp, char* E10_p, char* E10_c)
-{
-    char E11_tp[10], E11_p[10], E11_c[MAX_COD];
-    char E10Linha_h[10], E10Linha_s[10], E10Linha_hp[10], E10Linha_sp[10], E10Linha_hc[MAX_COD], E10Linha_sc[MAX_COD];
-
-    if (E11(E11_tp, E11_p, E11_c))
-    {
-        strcpy(E10Linha_h, E11_tp);
-        strcpy(E10Linha_hp, E11_p);
-        strcpy(E10Linha_hc, E11_c);
-        if (E10Linha(E10Linha_h, E10Linha_s, E10Linha_hp, E10Linha_sp, E10Linha_hc, E10Linha_sc))
-        {
-            strcpy(E10_tp, E10Linha_s);
-            strcpy(E10_p, E10Linha_sp);
-            strcpy(E10_c, E10Linha_sc);
-            return 1;
-        }
-        else return 0;
-    }
-    else return 0;
-}
-
-int E10Linha(char* E10Linha_h, char* E10Linha_s, char* E10Linha_hp, char* E10Linha_sp, char* E10Linha_hc, char* E10Linha_sc)
-{
-    char E11_tp[10], E11_p[10], E11_c[MAX_COD];
-    char E10Linha2_h[10], E10Linha2_s[10], E10Linha2_hp[10], E10Linha2_sp[10], E10Linha2_hc[MAX_COD], E10Linha2_sc[MAX_COD];
-
-    if (token == TK_ShiftLeft)
-    {
-        leToken();
-        if (E11(E11_tp, E11_p, E11_c))
-        {
-            strcpy(E10Linha2_h, "int");
-            if (E10Linha(E10Linha2_h, E10Linha2_s, E10Linha2_hp, E10Linha2_sp, E10Linha2_hc, E10Linha2_sc))
-            {
-                strcpy(E10Linha_s, E10Linha2_s);
-                strcpy(E10Linha_sp, E10Linha2_sp);
-                strcpy(E10Linha_sc, E10Linha2_sc);
-                return 1;
-            }
-            else return 0;
-        }
-        else return 0;
-    }
-    else if (token == TK_ShiftRight)
-    {
-        leToken();
-        if (E11(E11_tp, E11_p, E11_c))
-        {
-            strcpy(E10Linha2_h, "int");
-            if (E10Linha(E10Linha2_h, E10Linha2_s, E10Linha2_hp, E10Linha2_sp, E10Linha2_hc, E10Linha2_sc))
-            {
-                strcpy(E10Linha_s, E10Linha2_s);
-                strcpy(E10Linha_sp, E10Linha2_sp);
-                strcpy(E10Linha_sc, E10Linha2_sc);
-                return 1;
-            }
-            else return 0;
-        }
-        else return 0;
-    }
-    else
-    {
-        strcpy(E10Linha_s, E10Linha_h);
-        strcpy(E10Linha_sp, E10Linha_hp);
-        strcpy(E10Linha_sc, E10Linha_hc);
-        return 1;
-    }
-}
-
-int E11(char* E11_tp, char* E11_p, char* E11_c)
-{
-    char E12_tp[10], E12_p[10], E12_c[MAX_COD];
-    char E11Linha_h[10], E11Linha_s[10], E11Linha_hp[10], E11Linha_sp[10], E11Linha_hc[MAX_COD], E11Linha_sc[MAX_COD];
-
-    if (E12(E12_tp, E12_p, E12_c))
-    {
-        strcpy(E11Linha_h, E12_tp);
-        strcpy(E11Linha_hp, E12_p);
-        strcpy(E11Linha_hc, E12_c);
-        if (E11Linha(E11Linha_h, E11Linha_s, E11Linha_hp, E11Linha_sp, E11Linha_hc, E11Linha_sc))
-        {
-            strcpy(E11_tp, E11Linha_s);
-            strcpy(E11_p, E11Linha_sp);
-            strcpy(E11_c, E11Linha_sc);
-            return 1;
-        }
-        else return 0;
-    }
-    else return 0;
-}
-
-int E11Linha(char* E11Linha_h, char* E11Linha_s, char* E11Linha_hp, char* E11Linha_sp, char* E11Linha_hc, char* E11Linha_sc)
-{
-    char E12_tp[10], E12_p[10], E12_c[MAX_COD];
-    char E11Linha2_h[10], E11Linha2_s[10], E11Linha2_hp[10], E11Linha2_sp[10], E11Linha2_hc[MAX_COD], E11Linha2_sc[MAX_COD];
-
-    if (token == TK_Mais)
-    {
-        leToken();
-        if (E12(E12_tp, E12_p, E12_c))
-        {
-            if (!strcmp(E11Linha_h, "int") && !strcmp(E12_tp, "int")) strcpy(E11Linha2_h, "int");
-            else strcpy(E11Linha2_h, "float");
-            if (E11Linha(E11Linha2_h, E11Linha2_s, E11Linha2_hp, E11Linha2_sp, E11Linha2_hc, E11Linha2_sc))
-            {
-                strcpy(E11Linha_s, E11Linha2_s);
-                strcpy(E11Linha_sp, E11Linha2_sp);
-                strcpy(E11Linha_sc, E11Linha2_sc);
-                return 1;
-            }
-            else return 0;
-        }
-    }
-    else if (token == TK_Menos)
-    {
-        leToken();
-        if (E12(E12_tp, E12_p, E12_c))
-        {
-            if (!strcmp(E11Linha_h, "int") && !strcmp(E12_tp, "int")) strcpy(E11Linha2_h, "int");
-            else strcpy(E11Linha2_h, "float");
-            if (E11Linha(E11Linha2_h, E11Linha2_s, E11Linha2_hp, E11Linha2_sp, E11Linha2_hc, E11Linha2_sc))
-            {
-                strcpy(E11Linha_s, E11Linha2_s);
-                strcpy(E11Linha_sp, E11Linha2_sp);
-                strcpy(E11Linha_sc, E11Linha2_sc);
-                return 1;
-            }
-            else return 0;
-        }
-    }
-    else
-    {
-        strcpy(E11Linha_s, E11Linha_h);
-        strcpy(E11Linha_sp, E11Linha_hp);
-        strcpy(E11Linha_sc, E11Linha_hc);
-        return 1;
-    }
-}
-
-int E12(char* E12_tp, char* E12_p, char* E12_c)
-{
-    char E13_tp[10], E13_p[10], E13_c[MAX_COD];
-    char E12Linha_h[10], E12Linha_s[10], E12Linha_hp[10], E12Linha_sp[10], E12Linha_hc[MAX_COD], E12Linha_sc[MAX_COD];
-
-    if (E13(E13_tp, E13_p, E13_c))
-    {
-        strcpy(E12Linha_h, E13_tp);
-        strcpy(E12Linha_hp, E13_p);
-        strcpy(E12Linha_hc, E13_c);
-
-        if (E12Linha(E12Linha_h, E12Linha_s, E12Linha_hp, E12Linha_sp, E12Linha_hc, E12Linha_sc))
-        {
-            strcpy(E12_tp, E12Linha_s);
-            strcpy(E12_p, E12Linha_sp);
-            strcpy(E12_c, E12Linha_sc);
-            return 1;
-        }
-        else return 0;
-    }
-    else return 0;
-}
-
-int E12Linha(char* E12Linha_h, char* E12Linha_s, char* E12Linha_hp, char* E12Linha_sp, char* E12Linha_hc, char* E12Linha_sc)
-{
-    char E13_tp[10], E13_p[10], E13_c[MAX_COD];
-    char E12Linha2_h[10], E12Linha2_s[10], E12Linha2_hp[10], E12Linha2_sp[10], E12Linha2_hc[MAX_COD], E12Linha2_sc[MAX_COD];
-
-    if (token == TK_Multiplicacao)
-    {
-        leToken();
-        if (E13(E13_tp, E13_p, E13_c))
-        {
-
-            if (!strcmp(E12Linha_h, "int") && strcmp(E13_tp, "int")) strcpy(E12Linha2_h, "int");
-            else strcpy(E12Linha2_h, "float");
-            if (E12Linha(E12Linha2_h, E12Linha2_s, E12Linha2_hp, E12Linha2_sp, E12Linha2_hc, E12Linha2_sc))
-            {
-                strcpy(E12Linha_s, E12Linha2_s);
-                strcpy(E12Linha_sp, E12Linha2_sp);
-                strcpy(E12Linha_sc, E12Linha2_sc);
-                return 1;
-            }
-            else return 0;
-        }
-        else return 0;
-    }
-    else if (token == TK_Divisao)
-    {
-        leToken();
-        if (E13(E13_tp, E13_p, E13_c))
-        {
-            if (!strcmp(E12Linha_h, "int") && strcmp(E13_tp, "int")) strcpy(E12Linha2_h, "int");
-            else strcpy(E12Linha2_h, "float");
-            if (E12Linha(E12Linha2_h, E12Linha2_s, E12Linha2_hp, E12Linha2_sp, E12Linha2_hc, E12Linha2_sc))
-            {
-                strcpy(E12Linha_s, E12Linha2_s);
-                strcpy(E12Linha_sp, E12Linha2_sp);
-                strcpy(E12Linha_sc, E12Linha2_sc);
-                return 1;
-            }
-            else return 0;
-        }
-        else return 0;
-    }
-    else if (token == TK_RestoDivisao)
-    {
-        leToken();
-        if (E13(E13_tp, E13_p, E13_c))
-        {
-            if (!strcmp(E12Linha_h, "int") && !strcmp(E13_tp, "int"))
-                strcpy(E12Linha2_h, "int");
-            else
-            {
-                printf("Error: invalid mod operation");
-                exit(0);
-            }
-            if (E12Linha(E12Linha2_h, E12Linha2_s, E12Linha2_hp, E12Linha2_sp, E12Linha2_hc, E12Linha2_sc))
-            {
-                strcpy(E12Linha_s, E12Linha2_s);
-                strcpy(E12Linha_sp, E12Linha2_sp);
-                strcpy(E12Linha_sc, E12Linha2_sc);
-                return 1;
-            }
-            else return 0;
-        }
-        else return 0;
-    }
-    else
-    {
-        strcpy(E12Linha_s, E12Linha_h);
-        strcpy(E12Linha_sp, E12Linha_hp);
-        strcpy(E12Linha_sc, E12Linha_hc);
-        return 1;
-    }
-}
-
-int E13(char* E13_tp, char* E13_p, char* E13_c)
-{
-    char E14_tp[10], E14_p[10], E14_c[MAX_COD];
-    char E13Linha_tp[10], E13Linha_h[10], E13Linha_s[10];
-
-    if (E14(E14_tp, E14_p, E14_c))
-    {
-        if (token == TK_Menos)
-        {
-            strcpy(E13Linha_h, E14_tp);
-            leToken();
-            if (E13(E13Linha_tp, E13Linha_h, E13Linha_s))
-            {
-                strcpy(E13_tp, E13Linha_s);
-                return 1;
-            }
-            else return 0;
-        }
-        else if (token == TK_MaisMais)
-        {
-            strcpy(E13Linha_h, E14_tp);
-            leToken();
-
-            strcpy(E13_tp, E13Linha_s);
-            return 1;
-        }
-        else if (token == TK_MenosMenos)
-        {
-            strcpy(E13Linha_h, E14_tp);
-            leToken();
-
-            strcpy(E13_tp, E13Linha_s);
-            return 1;
-        }
-        else if (token == TK_Negacao)
-        {
-            strcpy(E13Linha_h, E14_tp);
-            leToken();
-            if (E13(E13Linha_tp, E13Linha_h, E13Linha_s))
-            {
-                strcpy(E13_tp, E13Linha_s);
-                return 1;
-            }
-            else return 0;
-        }
-        else
-        {
-            strcpy(E13_tp, E14_tp);
-            strcpy(E13_p, E14_p);
-            strcpy(E13_c, E14_c);
-            return 1;
-        }
-    }
-    return 0;
-}
-
-int E14(char* E14_tp, char* E14_p, char* E14_c)
-{
-    char E_tp[10];
-
-    if (token == TK_ConstInt)
-    {
-        strcpy(E14_tp, "int");
-        leToken();
-        return 1;
-    }
-    else if (token == TK_ConstFloat)
-    {
-        strcpy(E14_tp, "float");
-        leToken();
-        return 1;
-    }
-    else if (token == TK_Id)
-    {
-        consultaTipo(lex, E14_tp, ts);
-        if (strcmp(E14_tp, "int") && strcmp(E14_tp, "float"))
-        {
-            printf("Error: Variavel %s was not declared\n", lex);
-            exit(0);
-        }
-        strcpy(E14_p, lex);
-        strcpy(E14_c, "");
-
-        leToken();
-        if (RE()) return 1;
-        else return 0;
-    }
-    else if (token == TK_AbrePar)
-    {
-        char E_p[MAX_COD], E_c[MAX_COD];
-        leToken();
-        if (E(E_tp, E_p, E_c))
-        {
-            if (token == TK_FechaPar)
-            {
-                leToken();
-                strcpy(E14_c, E_c);
-                strcpy(E14_p, E_p);
-                return 1;
-            }
-            else return 0;
-        }
-        else return 0;
-    }
-    else return 0;
-}
-
-int RE()
-{
-    if (token == TK_AbrePar)
-    {
-        leToken();
-        if (LP())
-        {
-            if (token == TK_FechaPar)
-            {
-                leToken();
-                return 1;
-            }
-            else
-            {
-                printf("Error: expecting token ')' on line %d column %d\n", linha, coluna);
-                return 0;
-            }
-        }
-        else return 0;
-    }
-    else return 1;
-}
-
-int main()
-{
-    setbuf(stdout, NULL);
-    FILE* fonte;
-    ts = NULL;
-    char conteudo[20000];
-    char lex[20];
-    char caracter;
-    char arquivo[50];
-    int escolha = 0;
-
-    int i = 0;
-
-
-    do
-    {
-        do
-        {
-			printf("************************************************\n");
-			printf("************************************************\n");
-			printf("***** S E M A N T I C      A N A L Y S I S *****\n");
-			printf("************************************************\n");
-			printf("************************************************\n");
-            printf("******** 1 - Erro_Continue				\n");
-            printf("******** 2 - Erro_Break					\n");
-            printf("******** 3 - Erro_Tipo_Incompativel		\n");
-            printf("******** 4 - Erro_Variavel_Duplicada	\n");
-            printf("******** 5 - Erro_Variavel_Nao_Declarada\n");
-            printf("******** 6 - Teste_Erro					\n");
-            printf("******** 7 - Teste_Ok					\n");
-            printf("************************************************\n");
-			printf("************************************************\n");
-			printf("************************************************\n");
-			printf("************************************************\n");
-            scanf("%d", &escolha);
-            fflush(stdin);
-
-            if ((escolha < 0) || (escolha > 7))
-            {
-                printf("Invalid option, select an option between 1 and 7! \n");
-                system("pause");
-            }
-            switch (escolha)
-            {
-                case 1:
-                    strcpy(arquivo, "Error_Continue.txt");
-                    escolha = 0;
-                    break;
-                case 2:
-                    strcpy(arquivo, "Error_Break.txt");
-                    escolha = 0;
-                    break;
-                case 3:
-                    strcpy(arquivo, "Error_Tipo_Incompativel.txt");
-                    escolha = 0;
-                    break;
-                case 4:
-                    strcpy(arquivo, "Error_Variavel_Duplicada.txt");
-                    escolha = 0;
-                    break;
-                case 5:
-                    strcpy(arquivo, "Error_Variavel_Nao_Declarada.txt");
-                    escolha = 0;
-                    break;
-                case 6:
-                    strcpy(arquivo, "Teste_Erro.txt");
-                    escolha = 0;
-                    break;
-                case 7:
-                    strcpy(arquivo, "Teste_Ok.txt");
-                    escolha = 0;
-                    break;
-
-            }
-        } while ((escolha < 0) || (escolha > 7));
-    } while (escolha != 0);
-
-    if ((fonte = fopen(arquivo, "r")) == NULL)
-    {
-        printf("Error ao abrir arquivo\n");
-        exit(1);
-    }
-
-    while (1)
-    {
-        caracter = fgetc(fonte);
-        if (feof(fonte))
+int analizeTokens(char st[], char lex[]) {
+  int state = 0, fim = 0, posl = 0;
+  positionCol = pos;
+
+  while (!fim) {
+    char c = st[pos];
+
+    lex[posl++] = c;
+
+    switch (state) {
+    case 0:
+      if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || (c == '_')) {
+        pos++;
+        state = 1;
+        previousState = 0;
+        break;
+      }
+
+      if (c >= '0' && c <= '9') {
+        if (c == '0') {
+          pos++;
+          state = 8;
+          previousState = 0;
+          break;
+        }
+
+        pos++;
+        state = 2;
+        previousState = 0;
+        break;
+      }
+
+      if (c == '.') {
+        pos++;
+        state = 3;
+        previousState = 0;
+        break;
+      }
+
+      if (c == '=') {
+        c = st[++pos];
+        if (c == '=') {
+          lex[posl++] = '=';
+          lex[posl] = '\0';
+          pos++;
+          previousState = 0;
+          return TKN_COMP_IGUAL;
+        } else {
+          lex[posl] = '\0';
+          return TKN_ATRIBUICAO;
+        }
+      }
+
+      if (c == '!') {
+        c = st[++pos];
+        if (c == '=') {
+          lex[posl++] = '=';
+          lex[posl] = '\0';
+          pos++;
+          previousState = 0;
+          return TKN_COMP_DIF;
+        } else {
+          lex[posl] = '\0';
+          return TKN_NEGACAO;
+        }
+      }
+
+      if (c == '?') {
+        lex[posl] = '\0';
+        pos++;
+        previousState = 0;
+        return TKN_TERNARIO;
+      }
+
+      if (c == '+') {
+        c = st[++pos];
+
+        if (c == '+') {
+          lex[posl++] = '+';
+          lex[posl] = '\0';
+          pos++;
+          previousState = 0;
+          return TKN_INCREMENT;
+        } else if (c == '=') {
+          lex[posl++] = '=';
+          lex[posl] = '\0';
+          pos++;
+          previousState = 0;
+          return TKN_MAIS_IGUAL;
+        } else {
+          lex[posl] = '\0';
+          return TKN_SOMA;
+        }
+      }
+
+      if (c == '-') {
+        c = st[++pos];
+
+        if (c == '-') {
+          lex[posl++] = '-';
+          lex[posl] = '\0';
+          pos++;
+          previousState = 0;
+          return TKN_DECREMENT;
+        } else if (c == '=') {
+          lex[posl++] = '=';
+          lex[posl] = '\0';
+          pos++;
+          previousState = 0;
+          return TKN_MENOS_IGUAL;
+        } else {
+          lex[posl] = '\0';
+          return TKN_DIMINUI;
+        }
+      }
+
+      if (c == '*') {
+        c = st[++pos];
+
+        if (c == '=') {
+          lex[posl++] = '=';
+          lex[posl] = '\0';
+          pos++;
+          previousState = 0;
+          return TKN_MULTIPLICA_IGUAL;
+        } else {
+          lex[posl] = '\0';
+          return TKN_MULTIPLICA;
+        }
+      }
+
+      if (c == '/') {
+        c = st[++pos];
+
+        if (c == '=') {
+          lex[posl++] = '=';
+          lex[posl] = '\0';
+          pos++;
+          previousState = 0;
+          return TKN_DIVIDE_IGUAL;
+        } else {
+          lex[posl] = '\0';
+          return TKN_DIVIDE;
+        }
+      }
+
+      if (c == '%') {
+        c = st[++pos];
+
+        lex[posl] = '\0';
+        return TKN_RESTO_DIVISAO;
+      }
+
+      if (c == '|') {
+        c = st[++pos];
+
+        if (c == '|') {
+          lex[posl++] = '|';
+          lex[posl] = '\0';
+          pos++;
+          previousState = 0;
+          return TKN_OR;
+        }
+        return TKN_ERROR_OU;
+      }
+
+      if (c == '&') {
+        c = st[++pos];
+
+        if (c == '&') {
+          lex[posl++] = '&';
+          lex[posl] = '\0';
+          pos++;
+          previousState = 0;
+          return TKN_AND;
+        }
+        return TKN_ERROR_AND;
+      }
+
+      if (c == '>') {
+        c = st[++pos];
+
+        if (c == '=') {
+          lex[posl++] = '=';
+          lex[posl] = '\0';
+          pos++;
+          previousState = 0;
+          return TKN_COMP_MAIOR_IGUAL;
+        } else if (c == '>') {
+          lex[posl++] = '>';
+          lex[posl] = '\0';
+          pos++;
+          previousState = 0;
+          return TKN_SHIFT_RIGHT;
+        } else {
+          lex[posl] = '\0';
+          return TKN_COMP_MAIOR;
+        }
+      }
+
+      if (c == '<') {
+        c = st[++pos];
+
+        if (c == '=') {
+          lex[posl++] = '=';
+          lex[posl] = '\0';
+          pos++;
+          previousState = 0;
+          return TKN_COMP_MENOR_IGUAL;
+        } else if (c == '<') {
+          lex[posl++] = '<';
+          lex[posl] = '\0';
+          pos++;
+          previousState = 0;
+          return TKN_SHIFT_LEFT;
+        } else {
+          lex[posl] = '\0';
+          return TKN_COMP_MENOR;
+        }
+      }
+
+      if (c == '(') {
+        lex[posl] = '\0';
+        pos++;
+        previousState = 0;
+        return TKN_A_PAR;
+      }
+
+      if (c == ')') {
+        lex[posl] = '\0';
+        pos++;
+        previousState = 0;
+        return TKN_F_PAR;
+      }
+
+      if (c == '{') {
+        lex[posl] = '\0';
+        pos++;
+        previousState = 0;
+        return TKN_A_CHAVE;
+      }
+
+      if (c == '}') {
+        lex[posl] = '\0';
+        pos++;
+        previousState = 0;
+        return TKN_F_CHAVE;
+      }
+
+      if (c == '[') {
+        lex[posl] = '\0';
+        pos++;
+        previousState = 0;
+        return TKN_A_CON;
+      }
+
+      if (c == ']') {
+        lex[posl] = '\0';
+        pos++;
+        previousState = 0;
+        return TKN_F_CON;
+      }
+
+      if (c == ',') {
+        lex[posl] = '\0';
+        pos++;
+        previousState = 0;
+        return TKN_VIRGULA;
+      }
+
+      if (c == ';') {
+        lex[posl] = '\0';
+        pos++;
+        previousState = 0;
+        return TKN_PONTO_VIRG;
+      }
+
+      if (c == ':') {
+        lex[posl] = '\0';
+        pos++;
+        previousState = 0;
+        return TKN_DOIS_PONTOS;
+      }
+
+      if (c == ' ' || c == '\n') {
+        pos++;
+        posl--;
+        positionCol = pos;
+      }
+
+      if (c == 127) {
+        pos++;
+        posl--;
+        line++;
+        subcolumn = pos;
+        positionCol = pos;
+      }
+
+      if (c == 9) {
+        tab++;
+        pos++;
+        positionCol = pos;
+        posl--;
+        subcolumn -= 3;
+      }
+
+      if (c == '\0') return -1;
+
+      break;
+    case 1:
+      if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || (c == '_') || (c >= '0' && c <= '9')) {
+        pos++;
+        break;
+      }
+
+      lex[--posl] = '\0';
+      previousState = 1;
+      return reservedWord(lex);
+    case 2:
+      if (c >= '0' && c <= '9') {
+        pos++;
+        break;
+      }
+
+      if (c == '.') {
+        pos++;
+        state = 3;
+        previousState = 2;
+        break;
+      }
+
+      if (c == 'E') {
+        pos++;
+        state = 4;
+        previousState = 2;
+        break;
+      }
+
+      lex[--posl] = '\0';
+      previousState = 2;
+      return TKN_CONST_INT;
+    case 3:
+      if (c >= '0' && c <= '9') {
+        pos++;
+        state = 7;
+        break;
+      } else {
+        return TKN_ERROR_CONST_FLOAT;
+      }
+      case 4:
+        if (c >= '0' && c <= '9') {
+          pos++;
+          state = 6;
+          break;
+        } else if (c == '-' || c == '+') {
+          pos++;
+          state = 5;
+          break;
+        }
+        return TKN_ERROR_E;
+      case 5:
+        if (c >= '0' && c <= '9') {
+          pos++;
+          state = 6;
+          break;
+        }
+        return TKN_ERROR_E;
+      case 6:
+        if (c >= '0' && c <= '9') {
+          pos++;
+          break;
+        }
+        if (previousState == 2) {
+          lex[--posl] = '\0';
+          previousState = 6;
+          return TKN_CONST_INT;
+        } else {
+          lex[--posl] = '\0';
+          previousState = 6;
+          return TKN_CONST_FLOAT;
+        }
+        case 7:
+          if (c >= '0' && c <= '9') {
+            pos++;
             break;
-        if (caracter != 9 && caracter != 10 && caracter != 13)
-        {
-            conteudo[i++] = caracter;
-        }
-        else if (caracter == 10)
-        {
-            conteudo[i++] = 127;
-        }
-        else if (caracter == 9)
-        {
-            conteudo[i++] = 9;
-        }
+          }
+          if (c == 'E') {
+            pos++;
+            state = 4;
+            previousState = 7;
+            break;
+          }
+          lex[--posl] = '\0';
+          previousState = 7;
+          return TKN_CONST_FLOAT;
+        case 8:
+          if (c >= '0' && c <= '9') {
+            pos++;
+            break;
+          }
+          if (c == 'x' || c == 'X') {
+            pos++;
+            state = 9;
+            previousState = 8;
+            break;
+          }
+          lex[--posl] = '\0';
+          return TKN_CONST_INT;
+        case 9:
+          if (c >= '0' && c <= '9') {
+            pos++;
+            previousState = 9;
+            break;
+          } else {
+            if (previousState == 8)
+              return TKN_ERROR_CONST_HEX;
+          }
+          lex[--posl] = '\0';
+          return TKN_CONST_INT;
     }
-    conteudo[i] = '\0';
+  }
+}
 
-    for (i = 0; i < 1000; i++)
-    {
-        TKsParser[i] = -1;
-    }
+void readToken() {
+  token = TKsParser[posParser++];
+  line = TKsParser[posParser++];
+  column = TKsParser[posParser++];
+  strcpy(lex, TKsParserLex[posParserLex++]);
+}
 
-    while ((token = le_token(conteudo, lex)) != -1)
-    {
-        coluna = posColuna - subColuna;
+void addSymbol(char * id, char * type) {
+  table * aux = (table * ) malloc(sizeof(table));
+  strcpy(aux -> id, id);
+  strcpy(aux -> type, type);
+  aux -> identificadorEscopo = laco;
+  aux -> prox = ts;
+  ts = aux;
+}
 
-        TKsParser[posParser++] = token;
-        TKsParser[posParser++] = linha;
-        TKsParser[posParser++] = coluna;
-        strcpy(TKsParserLex[posParserLex++], lex);
-    }
+int verifyDuplicated(char * lex, table * tab) {
+  if (tab == NULL)
+    return 1;
 
-    fclose(fonte);
-    posParser = 0;
-    posParserLex = 0;
-    leToken();
+  if (!strcmp(tab -> id, lex) && tab -> identificadorEscopo == laco) {
+    printf("Variavel %s ja foi declarada\n", lex);
+    printf("Erro ocorreu na line %d, column %d", line, column);
+    exit(0);
+  }
 
-    if (PROGC())
-    {
-        printf("Reconhecimento semantico concluido\n");
-        printf("-----------------------\n");
-        getchar();
-    }
-    else
-    {
-        printf("Reconhecimento semantico com falhas\n");
-        printf("-----------------------\n");
-        getchar();
-    }
+  return verifyDuplicated(lex, tab -> prox);
+}
 
+void whatTypeIsIt(char * id, char * Type, table * tab) {
+  if (tab == NULL)
+    return;
+
+  if (!strcmp(tab -> id, id))
+    strcpy(Type, tab -> type);
+
+  whatTypeIsIt(id, Type, tab -> prox);
+}
+
+void geralabel(char label[]) {
+  static int numlabel = 0;
+  sprintf(label, "LB%03d", numlabel++);
+}
+
+void geratemp(char temp[]) {
+  static int numtemp = 0;
+  sprintf(temp, "T%03d", numtemp++);
+}
+
+int PROGC(char * PROGC_c) {
+  char LD_c[MAX_COD];
+
+  if (LD(LD_c)) {
+    strcpy(PROGC_c, LD_c);
+    return 1;
+  } else
     return 0;
+}
+
+int LD(char * LD_c) {
+  char DEC_c[MAX_COD];
+  char RLD_c[MAX_COD];
+
+  if (DEC(DEC_c)) {
+    if (RLD(RLD_c)) {
+      sprintf(LD_c, "%s%s\n", DEC_c, RLD_c);
+      return 1;
+    } else
+      return 0;
+  } else
+    return 0;
+}
+
+int RLD(char * RLD_c) {
+  char LD_c[MAX_COD];
+
+  if (LD(LD_c)) {
+    strcpy(RLD_c, LD_c);
+    return 1;
+  } else
+    return 1;
+}
+
+int DEC(char * DEC_c) {
+  char RDEC_t[10];
+  char Type_t[10];
+  char RDEC_c[MAX_COD];
+
+  if (TIPO(Type_t)) {
+    strcpy(RDEC_t, Type_t);
+    if (token == TKN_ID) {
+      if (verifyDuplicated(lex, ts))
+        addSymbol(lex, Type_t);
+      readToken();
+      if (RDEC(RDEC_t, RDEC_c)) {
+        strcpy(DEC_c, RDEC_c);
+        return 1;
+      } else
+        return 0;
+    } else {
+      printf("An error occurred. Expecting >> id << on line %d column %d\n", line, column);
+      return 0;
+    }
+  } else
+    return 0;
+}
+
+int RDEC(char * RDEC_t, char * RDEC_c) {
+  char DF_c[MAX_COD];
+  char DV_t[10];
+
+  if (token == TKN_VIRGULA) {
+    strcpy(DV_t, RDEC_t);
+    readToken();
+    if (DV(DV_t))
+      return 1;
+    else
+      return 0;
+  } else if (token == TKN_A_PAR) {
+    readToken();
+    if (DF(DF_c)) {
+      strcpy(RDEC_c, DF_c);
+      return 1;
+    } else
+      return 0;
+  } else if (token == TKN_PONTO_VIRG) {
+    readToken();
+    return 1;
+  } else if (token == TKN_ATRIBUICAO) {
+    readToken();
+    if (token == TKN_CONST_INT || token == TKN_CONST_FLOAT) {
+      readToken();
+      if (token == TKN_PONTO_VIRG) {
+        readToken();
+        return 1;
+      } else {
+        printf("An error occurred. Expecting >> ; << on line %d column %d\n", line, column);
+        return 0;
+      }
+    } else {
+      printf("An error occurred. esperava token contante inteira na line %d column %d\n", line, column);
+      return 0;
+    }
+  } else {
+    printf("An error occurred. Expecting >> ;', ')' ou ', << on line %d column %d\n", line, column);
+    return 0;
+  }
+}
+
+int DV(char * DV_t) {
+  char RDV_t[10];
+  if (token == TKN_ID) {
+    strcpy(RDV_t, DV_t);
+    if (verifyDuplicated(lex, ts))
+      addSymbol(lex, DV_t);
+    readToken();
+    if (RDV(RDV_t))
+      return 1;
+    else
+      return 0;
+  } else {
+    printf("An error occurred. Expecting >> id << on line %d column %d\n", line, column);
+    return 0;
+  }
+}
+
+int RDV(char * RDV_t) {
+  char DV_t[10];
+  if (token == TKN_VIRGULA) {
+    strcpy(DV_t, RDV_t);
+    readToken();
+    if (DV(DV_t))
+      return 1;
+    else
+      return 0;
+  } else if (token == TKN_PONTO_VIRG) {
+    readToken();
+    return 1;
+  } else {
+    printf("An error occurred. Expecting >> ,' ou '; << on line %d column %d\n", line, column);
+    return 0;
+  }
+}
+
+int TIPO(char * Type_t) {
+  if ((token == TKN_CHAR) || (token == TKN_INT) || (token == TKN_FLOAT)) {
+    switch (token) {
+    case TKN_CHAR:
+      strcpy(Type_t, "char");
+      break;
+    case TKN_INT:
+      strcpy(Type_t, "int");
+      break;
+    case TKN_FLOAT:
+      strcpy(Type_t, "float");
+      break;
+    case TKN_DOUBLE:
+      strcpy(Type_t, "double");
+      break;
+    }
+    readToken();
+    return 1;
+  } else {
+    return 0;
+  }
+}
+
+int DF(char * DF_c) {
+  char CORPO_c[MAX_COD];
+  if (LP()) {
+    if (token == TKN_F_PAR) {
+      readToken();
+      if (token == TKN_A_CHAVE) {
+        readToken();
+        if (CORPO(CORPO_c)) {
+          if (token == TKN_F_CHAVE) {
+            strcpy(DF_c, CORPO_c);
+            readToken();
+            return 1;
+          } else {
+            printf("An error occurred. Expecting >> } << on line %d column %d\n", line, column);
+            return 0;
+          }
+        } else
+          return 0;
+      } else {
+        printf("An error occurred. Expecting >> { << on line %d column %d\n", line, column);
+        return 0;
+      }
+    } else {
+      printf("An error occurred. Expecting >> ) << on line %d column %d\n", line, column);
+      return 0;
+    }
+  } else
+    return 0;
+}
+
+int LP() {
+  char TIPO_t[10];
+
+  if (TIPO(TIPO_t)) {
+    if (token == TKN_ID) {
+      if (verifyDuplicated(lex, ts))
+        addSymbol(lex, TIPO_t);
+      readToken();
+      if (RLP())
+        return 1;
+      else
+        return 0;
+    } else {
+      printf("An error occurred. Expecting >> id << on line %d column %d\n", line, column);
+      return 0;
+    }
+  } else
+    return 1;
+}
+
+int RLP() {
+  char TIPO_t[10];
+
+  if (token == TKN_VIRGULA) {
+    readToken();
+    if (TIPO(TIPO_t)) {
+      if (token == TKN_ID) {
+        if (verifyDuplicated(lex, ts))
+          addSymbol(lex, TIPO_t);
+        readToken();
+        if (RLP())
+          return 1;
+        else
+          return 0;
+      } else {
+        printf("An error occurred. Expecting >> id << on line %d column %d\n", line, column);
+        return 0;
+      }
+    } else
+      return 0;
+  } else
+    return 1;
+}
+
+int CORPO(char * CORPO_c) {
+  char LCD_c[MAX_COD];
+  if (LCD(LCD_c)) {
+    strcpy(CORPO_c, LCD_c);
+    return 1;
+  } else {
+    return 0;
+  }
+}
+
+int LCD(char * LCD_c) {
+  char DV_t[10];
+  char TIPO_t[10];
+  char COM_c[MAX_COD];
+  char LCDline_c[MAX_COD];
+
+  strcpy(LCDline_c, "");
+
+  if (COM(COM_c)) {
+    if (LCD(LCDline_c)) {
+      sprintf(LCD_c, "%s%s", COM_c, LCDline_c);
+      return 1;
+    } else
+      return 0;
+  } else if (TIPO(TIPO_t)) {
+    strcpy(DV_t, TIPO_t);
+    if (DV(DV_t)) {
+      if (LCD(LCDline_c)) {
+        strcpy(LCD_c, LCDline_c);
+        return 1;
+      } else
+        return 0;
+    } else
+      return 0;
+  } else
+    return 1;
+}
+
+int COM(char * COM_c) {
+  char TIPO_t[10];
+  char E_tp[10];
+  char E_p[10];
+  char E_c[MAX_COD];
+  char LCD_c[MAX_COD];
+  char RDEC_c[MAX_COD];
+  char COMWHILE_c[MAX_COD];
+  char COMFOR_c[MAX_COD];
+  char COMDOWHILE_c[MAX_COD];
+  char COMIF_c[MAX_COD];
+  char RDEC_t[10];
+
+  if (E(E_tp, E_p, E_c)) {
+    if (token == TKN_PONTO_VIRG) {
+      strcpy(COM_c, E_c);
+      readToken();
+      return 1;
+    } else {
+      printf("An error occurred. Expecting >> ; << on line %d column %d\n", line, column);
+      return 0;
+    }
+  } else if (COMWHILE(COMWHILE_c)) {
+    strcpy(COM_c, COMWHILE_c);
+    return 1;
+  } else if (COMDOWHILE(COMDOWHILE_c)) {
+    strcpy(COM_c, COMDOWHILE_c);
+    return 1;
+  } else if (COMIF(COMIF_c)) {
+    strcpy(COM_c, COMIF_c);
+    return 1;
+  } else if (COMFOR(COMFOR_c)) {
+    strcpy(COM_c, COMFOR_c);
+    return 1;
+  } else if (token == TKN_RETURN) {
+    readToken();
+    if (token == TKN_PONTO_VIRG) {
+      readToken();
+      return 1;
+    } else {
+      printf("An error occurred. Expecting >> ; << on line %d column %d\n", line, column);
+      return 0;
+    }
+  } else if (token == TKN_BREAK) {
+    if (laco == 0) {
+      printf("An error occurred. Not expecting >> break << here.");
+      exit(0);
+    }
+    readToken();
+    if (token == TKN_PONTO_VIRG) {
+      readToken();
+      return 1;
+    } else {
+      printf("An error occurred. Expecting >> ; << on line %d column %d\n", line, column);
+      return 0;
+    }
+  } else if (token == TKN_CONTINUE) {
+    if (laco == 0) {
+      printf("An error occurred. Not expecting >> continue << here.");
+      exit(0);
+    }
+    readToken();
+    if (token == TKN_PONTO_VIRG) {
+      readToken();
+      return 1;
+    } else {
+      printf("An error occurred. Expecting >> ; << on line %d column %d\n", line, column);
+      return 0;
+    }
+  } else if (token == TKN_A_CHAVE) {
+    readToken();
+    if (LCD(LCD_c)) {
+      if (token == TKN_F_CHAVE) {
+        strcpy(COM_c, LCD_c);
+        readToken();
+        return 1;
+      } else {
+        printf("An error occurred. Expecting >> } << on line %d column %d\n", line, column);
+        return 0;
+      }
+    } else
+      return 0;
+  } else if (TIPO(TIPO_t)) {
+    strcpy(RDEC_t, TIPO_t);
+    if (token == TKN_ID) {
+      if (verifyDuplicated(lex, ts))
+        addSymbol(lex, TIPO_t);
+      readToken();
+      if (RDEC(RDEC_t, RDEC_c)) {
+        strcpy(COM_c, RDEC_c);
+        return 1;
+      } else
+        return 0;
+    } else {
+      printf("An error occurred. Expecting >> id << on line %d column %d\n", line, column);
+      return 0;
+    }
+  } else {
+    return 0;
+  }
+}
+
+int COMIF(char * COMIF_c) {
+  char E_tp[10];
+  char E_p[MAX_COD];
+  char E_c[MAX_COD];
+  char COM_c[MAX_COD];
+  char RIF_c[MAX_COD];
+  char labelelse[10], labelfim[10];
+
+  strcpy(RIF_c, "");
+
+  if (token == TKN_IF) {
+    readToken();
+    if (token == TKN_A_PAR) {
+      readToken();
+      if (E(E_tp, E_p, E_c)) {
+        if (token == TKN_F_PAR) {
+          readToken();
+          if (COM(COM_c)) {
+            if (RIF(RIF_c)) {
+              geralabel(labelelse);
+              geralabel(labelfim);
+              if (strcmp(RIF_c, ""))
+                sprintf(COMIF_c, "%s\tif %s==0 goto %s\n%s\tgoto %s\n%s:\n%s%s:\n", E_c, E_p, labelelse, COM_c, labelfim, labelelse, RIF_c, labelfim);
+              else
+                sprintf(COMIF_c, "%s\tif %s==0 goto %s\n%s%s:\n", E_c, E_p, labelfim, COM_c, labelfim);
+              return 1;
+            } else
+              return 0;
+          } else
+            return 0;
+        } else {
+          printf("An error occurred. Expecting >> ) << on line %d column %d\n", line, column);
+          return 0;
+        }
+      } else
+        return 0;
+    } else {
+      printf("An error occurred. Expecting >> ( << on line %d column %d\n", line, column);
+      return 0;
+    }
+  } else {
+    return 0;
+  }
+}
+
+int RIF(char * RIF_c) {
+  char COM_c[MAX_COD];
+
+  if (token == TKN_ELSE) {
+    readToken();
+    if (COM(COM_c)) {
+      strcpy(RIF_c, COM_c);
+      return 1;
+    } else
+      return 0;
+  } else
+    return 1;
+}
+
+int COMFOR(char * COMFOR_c) {
+  char COM_c[MAX_COD];
+  char RFOR_c[MAX_COD];
+  char EIF1_c[MAX_COD];
+  char EIF2_c[MAX_COD];
+  char EIF3_c[MAX_COD];
+  char EIF1_p[MAX_COD];
+  char EIF2_p[MAX_COD];
+  char EIF3_p[MAX_COD];
+  char labellaco[MAX_COD];
+  char labelfim[MAX_COD];
+
+  if (token == TKN_FOR) {
+    laco++;
+    readToken();
+    if (token == TKN_A_PAR) {
+      readToken();
+      if (EIF(EIF1_c, EIF1_p)) {
+        if (token == TKN_PONTO_VIRG) {
+          readToken();
+          if (EIF(EIF2_c, EIF2_p)) {
+            if (token == TKN_PONTO_VIRG) {
+              readToken();
+              if (EIF(EIF3_c, EIF3_p)) {
+                if (token == TKN_F_PAR) {
+                  readToken();
+                  if (COM(COM_c)) {
+                    laco--;
+                    if (RFOR(RFOR_c)) {
+                      geralabel(labellaco);
+                      geralabel(labelfim);
+                      sprintf(COMFOR_c, "%s%s:\n%s\tif %s == 0 goto %s\n%s%s\tgoto %s\n%s:\n%s", EIF1_c, labellaco,
+                        EIF2_c, EIF2_p, labelfim, COM_c, EIF3_c, labellaco, labelfim, RFOR_c);
+                      return 1;
+                    } else
+                      return 0;
+                  } else
+                    return 0;
+                } else {
+                  printf("An error occurred. Expecting >> ) << on line %d column %d\n", line, column);
+                  return 0;
+                }
+              } else
+                return 0;
+            } else {
+              printf("An error occurred. Expecting >> ; << on line %d column %d\n", line, column);
+              return 0;
+            }
+          } else
+            return 0;
+        } else {
+          printf("An error occurred. Expecting >> ; << on line %d column %d\n", line, column);
+          return 0;
+        }
+      } else
+        return 0;
+    } else {
+      printf("An error occurred. Expecting >> ( << on line %d column %d\n", line, column);
+      return 0;
+    }
+  } else
+    return 0;
+}
+
+int RFOR(char * RFOR_c) {
+  char COM_c[MAX_COD];
+
+  if (COM(COM_c)) {
+    strcpy(RFOR_c, COM_c);
+    return 1;
+  } else
+    return 1;
+}
+
+int EIF(char * EIF_c, char * EIF_p) {
+  char E_tp[10];
+  char E_p[MAX_COD];
+  char E_c[MAX_COD];
+
+  if (E(E_tp, E_p, E_c)) {
+    strcpy(EIF_c, E_c);
+    strcpy(EIF_p, E_p);
+    return 1;
+  } else
+    return 1;
+}
+
+int COMWHILE(char * COMWHILE_c) {
+  char E_tp[10];
+  char E_p[MAX_COD];
+  char E_c[MAX_COD];
+  char COM_c[MAX_COD];
+  char RWHILE_c[MAX_COD];
+  char labelinicio[10];
+  char labelfim[10];
+
+  if (token == TKN_WHILE && doWhile == 0) {
+    laco++;
+    readToken();
+    if (token == TKN_A_PAR) {
+      readToken();
+      if (E(E_tp, E_p, E_c)) {
+        if (token == TKN_F_PAR) {
+          readToken();
+          if (COM(COM_c)) {
+            if (RWHILE(RWHILE_c)) {
+              geralabel(labelinicio);
+              geralabel(labelfim);
+              sprintf(COMWHILE_c, "%s:\n%s\tif %s==0 goto %s\n%s\tgoto %s\n%s:\n%s", labelinicio, E_c, E_p, labelfim, COM_c, labelinicio, labelfim, RWHILE_c);
+              laco--;
+              return 1;
+            } else
+              return 0;
+          } else
+            return 0;
+        } else {
+          printf("An error occurred. Expecting >> ) << on line %d column %d\n", line, column);
+          return 0;
+        }
+      } else
+        return 0;
+    } else {
+      printf("An error occurred. Expecting >> ( << on line %d column %d\n", line, column);
+      return 0;
+    }
+  } else {
+    return 0;
+  }
+}
+
+int RWHILE(char * RWHILE_c) {
+  char COM_c[MAX_COD];
+
+  if (COM(COM_c)) {
+    strcpy(RWHILE_c, COM_c);
+    return 1;
+  } else
+    return 1;
+}
+
+int COMDOWHILE(char * COMDOWHILE_c) {
+  char E_tp[10];
+  char E_p[MAX_COD];
+  char E_c[MAX_COD];
+  char COM_c[MAX_COD];
+  char RDOWHILE_c[MAX_COD];
+  char label[10];
+
+  if (token == TKN_DO) {
+    laco++;
+    doWhile++;
+    readToken();
+    if (COM(COM_c)) {
+      if (RDOWHILE(RDOWHILE_c)) {
+        if (token == TKN_WHILE) {
+          readToken();
+          if (token == TKN_A_PAR) {
+            readToken();
+            if (E(E_tp, E_p, E_c)) {
+              if (token == TKN_F_PAR) {
+                readToken();
+                if (token == TKN_PONTO_VIRG) {
+                  readToken();
+                  doWhile--;
+                  geralabel(label);
+                  sprintf(COMDOWHILE_c, "%s:\n%s%s\tif %s==1 goto %s\n%s", label, COM_c, E_c, E_p, label, RDOWHILE_c);
+                  laco--;
+                  return 1;
+                } else {
+                  printf("An error occurred. Expecting >> ; << on line %d column %d\n", line, column);
+                }
+              } else {
+                printf("An error occurred. Expecting >> ) << on line %d column %d\n", line, column);
+                return 0;
+              }
+            } else
+              return 0;
+          } else {
+            printf("An error occurred. Expecting >> ( << on line %d column %d\n", line, column);
+            return 0;
+          }
+        } else {
+          printf("An error occurred. Expecting >> while << on line %d column %d\n", line, column);
+          return 0;
+        }
+      } else
+        return 0;
+    } else
+      return 0;
+  } else {
+    return 0;
+  }
+}
+
+int RDOWHILE(char * RDOWHILE_c) {
+  char COM_c[MAX_COD];
+
+  if (COM(COM_c)) {
+    strcpy(RDOWHILE_c, COM_c);
+    return 1;
+  } else
+    return 1;
+}
+
+int RE() {
+  if (token == TKN_A_PAR) {
+    readToken();
+    if (LP()) {
+      if (token == TKN_F_PAR) {
+        readToken();
+        return 1;
+      } else {
+        printf("An error occurred. Expecting >> ) << on line %d column %d\n", line, column);
+        return 0;
+      }
+    } else
+      return 0;
+  } else
+    return 1;
+}
+
+int E(char * E_tp, char * E_p, char * E_c) {
+  char Eline_h[10];
+  char Eline_s[10];
+  char Eline_c[MAX_COD];
+  char Eline_p[10];
+  char Eline_hp[10];
+  char Eline_hc[MAX_COD];
+  char Eline_sp[10];
+  char Eline_sc[MAX_COD];
+  char S1_tp[10];
+  char S1_h[10];
+  char S1_s[10];
+  char S1_p[10];
+  char S1_c[MAX_COD];
+
+  if (S1(S1_tp, S1_h, S1_s, S1_p, S1_c)) {
+    strcpy(Eline_h, S1_tp);
+    strcpy(Eline_hp, S1_p);
+    strcpy(Eline_hc, S1_c);
+    if (Enew(Eline_h, Eline_s, Eline_p, Eline_hp, Eline_sp, Eline_c, Eline_hc, Eline_sc)) {
+      strcpy(E_tp, Eline_s);
+      strcpy(E_p, Eline_sp);
+      strcpy(E_c, Eline_sc);
+      return 1;
+    } else
+      return 0;
+  } else
+    return 0;
+}
+
+int Enew(char * Eline_h, char * Eline_s, char * Eline_p, char * Eline_hp, char * Eline_sp, char * Eline_c, char * Eline_hc, char * Eline_sc) {
+  char ElinS2_sp[10];
+  char ElinS2_sc[MAX_COD];
+  char ElinS2_hp[10];
+  char ElinS2_hc[MAX_COD];
+  char ElinS2_h[10];
+  char ElinS2_s[10];
+  char ElinS2_p[10];
+  char ElinS2_c[MAX_COD];
+  char S1_tp[10];
+  char S1_h[10];
+  char S1_s[10];
+  char S1_p[10];
+  char S1_c[MAX_COD];
+
+  if (token == TKN_VIRGULA) {
+    readToken();
+    if (S1(S1_tp, S1_h, S1_s, S1_p, S1_c)) {
+      strcpy(ElinS2_h, S1_tp);
+      if (Enew(ElinS2_h, ElinS2_s, ElinS2_p, ElinS2_hp, ElinS2_sp, ElinS2_c, ElinS2_hc, ElinS2_sc)) {
+        strcpy(Eline_s, ElinS2_s);
+        strcpy(Eline_p, ElinS2_p);
+        sprintf(Eline_c, "%s %s", S1_c, ElinS2_c);
+        return 1;
+      } else
+        return 0;
+    } else
+      return 0;
+  } else {
+    strcpy(Eline_s, Eline_h);
+    strcpy(Eline_sp, Eline_hp);
+    strcpy(Eline_sc, Eline_hc);
+    return 1;
+  }
+}
+
+int S1(char * S1_tp, char * S1_h, char * S1_s, char * S1_p, char * S1_c) {
+  char S1line_h[10];
+  char S1line_s[10];
+  char S1line_tp[10];
+  char S1line_p[10];
+  char S1line_c[MAX_COD];
+  char S2_tp[10];
+  char S2_h[10];
+  char S2_s[10];
+  char S2_p[10];
+  char S2_c[MAX_COD];
+
+  if (S2(S2_tp, S2_h, S2_s, S2_p, S2_c)) {
+    if (token == TKN_ATRIBUICAO) {
+      strcpy(S1line_h, S2_tp);
+      readToken();
+      if (S1(S1line_tp, S1line_h, S1line_s, S1line_p, S1line_c)) {
+        strcpy(S1_tp, S1line_s);
+        strcpy(S1_p, S2_p);
+        sprintf(S1_c, "%s\t%s = %s\n", S1line_c, S2_p, S1line_p);
+        return 1;
+      } else
+        return 0;
+    } else if (token == TKN_MULTIPLICA_IGUAL) {
+      strcpy(S1line_h, S2_tp);
+      readToken();
+      if (S1(S1line_tp, S1line_h, S1line_s, S1line_p, S1line_c)) {
+        strcpy(S1_tp, S1line_s);
+        strcpy(S1_p, S2_p);
+        sprintf(S1_c, "%s\t%s = %s * %s\n", S1line_c, S2_p, S2_p, S1line_p);
+        return 1;
+      } else
+        return 0;
+    } else if (token == TKN_DIVIDE_IGUAL) {
+      strcpy(S1line_h, S2_tp);
+      readToken();
+      if (S1(S1line_tp, S1line_h, S1line_s, S1line_p, S1line_c)) {
+        strcpy(S1_tp, S1line_s);
+        strcpy(S1_p, S2_p);
+        sprintf(S1_c, "%s\t%s = %s / %s\n", S1line_c, S2_p, S2_p, S1line_p);
+        return 1;
+      } else
+        return 0;
+    } else if (token == TKN_MAIS_IGUAL) {
+      strcpy(S1line_h, S2_tp);
+      readToken();
+      if (S1(S1line_tp, S1line_h, S1line_s, S1line_p, S1line_c)) {
+        strcpy(S1_tp, S1line_s);
+        strcpy(S1_p, S2_p);
+        sprintf(S1_c, "%s\t%s = %s + %s\n", S1line_c, S2_p, S2_p, S1line_p);
+        return 1;
+      } else
+        return 0;
+    } else if (token == TKN_MENOS_IGUAL) {
+      strcpy(S1line_h, S2_tp);
+      readToken();
+      if (S1(S1line_tp, S1line_h, S1line_s, S1line_p, S1line_c)) {
+        strcpy(S1_tp, S1line_s);
+        strcpy(S1_p, S2_p);
+        sprintf(S1_c, "%s\t%s = %s - %s\n", S1line_c, S2_p, S2_p, S1line_p);
+        return 1;
+      } else
+        return 0;
+    } else {
+      strcpy(S1_tp, S2_tp);
+      strcpy(S1_p, S2_p);
+      strcpy(S1_c, S2_c);
+      return 1;
+    }
+  }
+}
+
+int S2(char * S2_tp, char * S2_h, char * S2_s, char * S2_p, char * S2_c) {
+  char S2line_h[10];
+  char S2line_s[10];
+  char S2line_hp[10];
+  char S2line_sp[10];
+  char S2line_hc[MAX_COD];
+  char S2line_sc[MAX_COD];
+  char S3_tp[10];
+  char S3_p[10];
+  char S3_c[MAX_COD];
+
+  if (S3(S3_tp, S3_p, S3_c)) {
+    strcpy(S2line_h, S3_tp);
+    strcpy(S2line_hp, S3_p);
+    strcpy(S2line_hc, S3_c);
+    if (S2new(S2line_h, S2line_s, S2line_hp, S2line_sp, S2line_hc, S2line_sc)) {
+      strcpy(S2_tp, S2line_s);
+      strcpy(S2_p, S2line_sp);
+      strcpy(S2_c, S2line_sc);
+      return 1;
+    } else
+      return 0;
+  } else
+    return 0;
+}
+
+int S2new(char * S2line_h, char * S2line_s, char * S2line_hp, char * S2line_sp, char * S2line_hc, char * S2line_sc) {
+  char S2_tp[10];
+  char S2_h[10];
+  char S2_s[10];
+  char S2_p[10];
+  char S2_c[MAX_COD];
+  char S2linS2_h[10];
+  char S2linS2_s[10];
+  char S2linS2_hp[10];
+  char S2linS2_sp[10];
+  char S2linS2_hc[MAX_COD];
+  char S2linS2_sc[MAX_COD];
+
+  if (token == TKN_TERNARIO) {
+    readToken();
+    if (S2(S2_tp, S2_h, S2_s, S2_p, S2_c)) {
+      if (token == TKN_DOIS_PONTOS) {
+        readToken();
+        if (S2(S2_tp, S2_h, S2_s, S2_p, S2_c)) {
+          if (S2new(S2linS2_h, S2linS2_s, S2linS2_hp, S2linS2_sp, S2linS2_hc, S2linS2_sc))
+            return 1;
+          else
+            return 0;
+        } else
+          return 0;
+      } else {
+        printf("An error occurred. Expecting >> : << on line %d column %d\n", line, column);
+        return 0;
+      }
+    } else
+      return 0;
+  } else {
+    strcpy(S2line_s, S2line_h);
+    strcpy(S2line_sp, S2line_hp);
+    strcpy(S2line_sc, S2line_hc);
+    return 1;
+  }
+}
+
+int S3(char * S3_tp, char * S3_p, char * S3_c) {
+  char S3line_h[10];
+  char S3line_s[10];
+  char S3line_hp[10];
+  char S3line_sp[10];
+  char S3line_hc[MAX_COD];
+  char S3line_sc[MAX_COD];
+  char S4_tp[10];
+  char S4_p[10];
+  char S4_c[MAX_COD];
+
+  if (S4(S4_tp, S4_p, S4_c)) {
+    strcpy(S3line_h, S4_tp);
+    strcpy(S3line_hp, S4_p);
+    strcpy(S3line_hc, S4_c);
+    if (S3new(S3line_h, S3line_s, S3line_hp, S3line_sp, S3line_hc, S3line_sc)) {
+      strcpy(S3_tp, S3line_s);
+      strcpy(S3_p, S3line_sp);
+      strcpy(S3_c, S3line_sc);
+      return 1;
+    } else
+      return 0;
+  } else
+    return 0;
+}
+
+int S3new(char * S3line_h, char * S3line_s, char * S3line_hp, char * S3line_sp, char * S3line_hc, char * S3line_sc) {
+  char S3linS2_h[10];
+  char S3linS2_s[10];
+  char S3linS2_hp[10];
+  char S3linS2_sp[10];
+  char S3linS2_hc[MAX_COD];
+  char S3linS2_sc[MAX_COD];
+  char S4_tp[10];
+  char S4_p[10];
+  char S4_c[MAX_COD];
+
+  if (token == TKN_OR) {
+    readToken();
+    if (S4(S4_tp, S4_p, S4_c)) {
+      strcpy(S3linS2_h, "int");
+      geratemp(S3linS2_hp);
+      sprintf(S3linS2_hc, "%s%s\t%s = %s || %s\n", S3line_hc, S4_c, S3linS2_hp, S3line_hp, S4_p);
+      if (S3new(S3linS2_h, S3linS2_s, S3linS2_hp, S3linS2_sp, S3linS2_hc, S3linS2_sc)) {
+        strcpy(S3line_s, S3linS2_s);
+        strcpy(S3line_sp, S3linS2_sp);
+        strcpy(S3line_sc, S3linS2_sc);
+        return 1;
+      }
+    } else
+      return 0;
+  } else {
+    strcpy(S3line_s, S3line_h);
+    strcpy(S3line_sp, S3line_hp);
+    strcpy(S3line_sc, S3line_hc);
+    return 1;
+  }
+}
+
+int S4(char * S4_tp, char * S4_p, char * S4_c) {
+  char S4line_h[10];
+  char S4line_s[10];
+  char S4line_hp[10];
+  char S4line_sp[10];
+  char S4line_hc[MAX_COD];
+  char S4line_sc[MAX_COD];
+  char S5_tp[10];
+  char S5_p[10];
+  char S5_c[MAX_COD];
+
+  if (S5(S5_tp, S5_p, S5_c)) {
+    strcpy(S4line_h, S5_tp);
+    strcpy(S4line_hp, S5_p);
+    strcpy(S4line_hc, S5_c);
+    if (S4new(S4line_h, S4line_s, S4line_hp, S4line_sp, S4line_hc, S4line_sc)) {
+      strcpy(S4_tp, S4line_s);
+      strcpy(S4_p, S4line_sp);
+      strcpy(S4_c, S4line_sc);
+      return 1;
+    } else
+      return 0;
+  } else
+    return 0;
+}
+
+int S4new(char * S4line_h, char * S4line_s, char * S4line_hp, char * S4line_sp, char * S4line_hc, char * S4line_sc) {
+  char S4linS2_h[10];
+  char S4linS2_s[10];
+  char S4linS2_hp[10];
+  char S4linS2_sp[10];
+  char S4linS2_hc[MAX_COD];
+  char S4linS2_sc[MAX_COD];
+  char S5_tp[10];
+  char S5_p[10];
+  char S5_c[MAX_COD];
+
+  if (token == TKN_AND) {
+    readToken();
+    if (S5(S5_tp, S5_p, S5_c)) {
+      strcpy(S4linS2_h, "int");
+      geratemp(S4linS2_hp);
+      sprintf(S4linS2_hc, "%s%s\t%s = %s && %s\n", S4line_hc, S5_c, S4linS2_hp, S4line_hp, S5_p);
+      if (S4new(S4linS2_h, S4linS2_s, S4linS2_hp, S4linS2_sp, S4linS2_hc, S4linS2_sc)) {
+        strcpy(S4line_s, S4linS2_s);
+        strcpy(S4line_sp, S4linS2_sp);
+        strcpy(S4line_sc, S4linS2_sc);
+        return 1;
+      } else
+        return 0;
+    } else
+      return 0;
+  } else {
+    strcpy(S4line_s, S4line_h);
+    strcpy(S4line_sp, S4line_hp);
+    strcpy(S4line_sc, S4line_hc);
+    return 1;
+  }
+}
+
+int S5(char * S5_tp, char * S5_p, char * S5_c) {
+  char S6_tp[10];
+  char S6_p[10];
+  char S6_c[MAX_COD];
+  char S5line_h[10];
+  char S5line_s[10];
+  char S5line_hp[10];
+  char S5line_sp[10];
+  char S5line_hc[MAX_COD];
+  char S5line_sc[MAX_COD];
+
+  if (S6(S6_tp, S6_p, S6_c)) {
+    strcpy(S5line_h, S6_tp);
+    strcpy(S5line_hp, S6_p);
+    strcpy(S5line_hc, S6_c);
+    if (S5new(S5line_h, S5line_s, S5line_hp, S5line_sp, S5line_hc, S5line_sc)) {
+      strcpy(S5_tp, S5line_s);
+      strcpy(S5_p, S5line_sp);
+      strcpy(S5_c, S5line_sc);
+      return 1;
+    } else
+      return 0;
+  } else
+    return 0;
+}
+
+int S5new(char * S5line_h, char * S5line_s, char * S5line_hp, char * S5line_sp, char * S5line_hc, char * S5line_sc) {
+  char S6_tp[10];
+  char S6_p[10];
+  char S6_c[MAX_COD];
+  char S5linS2_h[10];
+  char S5linS2_s[10];
+  char S5linS2_hp[10];
+  char S5linS2_sp[10];
+  char S5linS2_hc[MAX_COD];
+  char S5linS2_sc[MAX_COD];
+
+  if (token == TKN_LOGICAL_OR) {
+    readToken();
+    if (S6(S6_tp, S6_p, S6_c)) {
+      strcpy(S5linS2_h, "int");
+      geratemp(S5linS2_hp);
+      sprintf(S5linS2_hc, "%s%s\t%s = %s | %s\n", S5line_hc, S6_c, S5linS2_hp, S5line_hp, S6_p);
+      if (S5new(S5linS2_h, S5linS2_s, S5linS2_hp, S5linS2_sp, S5linS2_hc, S5linS2_sc)) {
+        strcpy(S5line_s, S5linS2_s);
+        strcpy(S5line_sp, S5linS2_sp);
+        strcpy(S5line_sc, S5linS2_sc);
+        return 1;
+      } else
+        return 0;
+    } else
+      return 0;
+  } else {
+    strcpy(S5line_s, S5line_h);
+    strcpy(S5line_sp, S5line_hp);
+    strcpy(S5line_sc, S5line_hc);
+    return 1;
+  }
+}
+
+int S6(char * S6_tp, char * S6_p, char * S6_c) {
+  char S7_tp[10];
+  char S7_p[10];
+  char S7_c[MAX_COD];
+  char S6line_h[10];
+  char S6line_s[10];
+  char S6line_hp[10];
+  char S6line_sp[10];
+  char S6line_hc[MAX_COD];
+  char S6line_sc[MAX_COD];
+
+  if (S7(S7_tp, S7_p, S7_c)) {
+    strcpy(S6line_h, S7_tp);
+    strcpy(S6line_hp, S7_p);
+    strcpy(S6line_hc, S7_c);
+    if (S6new(S6line_h, S6line_s, S6line_hp, S6line_sp, S6line_hc, S6line_sc)) {
+      strcpy(S6_tp, S6line_s);
+      strcpy(S6_p, S6line_sp);
+      strcpy(S6_c, S6line_sc);
+      return 1;
+    } else
+      return 0;
+  } else
+    return 0;
+}
+
+int S6new(char * S6line_h, char * S6line_s, char * S6line_hp, char * S6line_sp, char * S6line_hc, char * S6line_sc) {
+  char S7_tp[10];
+  char S7_p[10];
+  char S7_c[MAX_COD];
+  char S6linS2_h[10];
+  char S6linS2_s[10];
+  char S6linS2_hp[10];
+  char S6linS2_sp[10];
+  char S6linS2_hc[MAX_COD];
+  char S6linS2_sc[MAX_COD];
+
+  if (token == TKN_XOR) {
+    readToken();
+    if (S7(S7_tp, S7_p, S7_c)) {
+      strcpy(S6linS2_h, "int");
+      geratemp(S6linS2_hp);
+      sprintf(S6linS2_hc, "%s%s\t%s = %s ^ %s\n", S6line_hc, S7_c, S6linS2_hp, S6line_hp, S7_p);
+      if (S6new(S6linS2_h, S6linS2_s, S6linS2_hp, S6linS2_sp, S6linS2_hc, S6linS2_sc)) {
+        strcpy(S6line_s, S6linS2_s);
+        strcpy(S6line_sp, S6linS2_sp);
+        strcpy(S6line_sc, S6linS2_sc);
+        return 1;
+      } else
+        return 0;
+    } else
+      return 0;
+  } else {
+    strcpy(S6line_s, S6line_h);
+    strcpy(S6line_sp, S6line_hp);
+    strcpy(S6line_sc, S6line_hc);
+    return 1;
+  }
+}
+
+int S7(char * S7_tp, char * S7_p, char * S7_c) {
+  char S8_tp[10];
+  char S8_p[10];
+  char S8_c[MAX_COD];
+  char S7line_h[10];
+  char S7line_s[10];
+  char S7line_hp[10];
+  char S7line_sp[10];
+  char S7line_hc[MAX_COD];
+  char S7line_sc[MAX_COD];
+
+  if (S8(S8_tp, S8_p, S8_c)) {
+    strcpy(S7line_h, S8_tp);
+    strcpy(S7line_hp, S8_p);
+    strcpy(S7line_hc, S8_c);
+    if (S7new(S7line_h, S7line_s, S7line_hp, S7line_sp, S7line_hc, S7line_sc)) {
+      strcpy(S7_tp, S7line_s);
+      strcpy(S7_p, S7line_sp);
+      strcpy(S7_c, S7line_sc);
+      return 1;
+    } else
+      return 0;
+  } else
+    return 0;
+}
+
+int S7new(char * S7line_h, char * S7line_s, char * S7line_hp, char * S7line_sp, char * S7line_hc, char * S7line_sc) {
+  char S8_tp[10];
+  char S8_p[10];
+  char S8_c[MAX_COD];
+  char S7linS2_h[10];
+  char S7linS2_s[10];
+  char S7linS2_hp[10];
+  char S7linS2_sp[10];
+  char S7linS2_hc[MAX_COD];
+  char S7linS2_sc[MAX_COD];
+
+  if (token == TKN_LOGICAL_AND) {
+    readToken();
+    if (S8(S8_tp, S8_p, S8_c)) {
+      strcpy(S7linS2_h, "int");
+      geratemp(S7linS2_hp);
+      sprintf(S7linS2_hc, "%s%s\t%s = %s & %s\n", S7line_hc, S8_c, S7linS2_hp, S7line_hp, S8_p);
+      if (S7new(S7linS2_h, S7linS2_s, S7linS2_hp, S7linS2_sp, S7linS2_hc, S7linS2_sc)) {
+        strcpy(S7line_s, S7linS2_s);
+        strcpy(S7line_sp, S7linS2_sp);
+        strcpy(S7line_sc, S7linS2_sc);
+        return 1;
+      } else
+        return 0;
+    } else
+      return 0;
+  } else {
+    strcpy(S7line_s, S7line_h);
+    strcpy(S7line_sp, S7line_hp);
+    strcpy(S7line_sc, S7line_hc);
+    return 1;
+  }
+}
+
+int S8(char * S8_tp, char * S8_p, char * S8_c) {
+  char S9_tp[10];
+  char S9_p[10];
+  char S9_c[MAX_COD];
+  char S8line_h[10];
+  char S8line_s[10];
+  char S8line_hp[10];
+  char S8line_sp[10];
+  char S8line_hc[MAX_COD];
+  char S8line_sc[MAX_COD];
+
+  if (S9(S9_tp, S9_p, S9_c)) {
+    strcpy(S8line_h, S9_tp);
+    strcpy(S8line_hp, S9_p);
+    strcpy(S8line_hc, S9_c);
+    if (S8new(S8line_h, S8line_s, S8line_hp, S8line_sp, S8line_hc, S8line_sc)) {
+      strcpy(S8_tp, S8line_s);
+      strcpy(S8_p, S8line_sp);
+      strcpy(S8_c, S8line_sc);
+      return 1;
+    } else
+      return 0;
+  } else
+    return 0;
+}
+
+int S8new(char * S8line_h, char * S8line_s, char * S8line_hp, char * S8line_sp, char * S8line_hc, char * S8line_sc) {
+  char S9_tp[10];
+  char S9_p[10];
+  char S9_c[MAX_COD];
+  char S8linS2_h[10];
+  char S8linS2_s[10];
+  char S8linS2_hp[10];
+  char S8linS2_sp[10];
+  char S8linS2_hc[MAX_COD];
+  char S8linS2_sc[MAX_COD];
+
+  if (token == TKN_COMP_IGUAL) {
+    readToken();
+    if (S9(S9_tp, S9_p, S9_c)) {
+      strcpy(S8linS2_h, "int");
+      geratemp(S8linS2_hp);
+      sprintf(S8linS2_hc, "%s%s\t%s = %s == %s\n", S8line_hc, S9_c, S8linS2_hp, S8line_hp, S9_p);
+      if (S8new(S8linS2_h, S8linS2_s, S8linS2_hp, S8linS2_sp, S8linS2_hc, S8linS2_sc)) {
+        strcpy(S8line_s, S8linS2_s);
+        strcpy(S8line_sp, S8linS2_sp);
+        strcpy(S8line_sc, S8linS2_sc);
+        return 1;
+      } else
+        return 0;
+    } else
+      return 0;
+  } else if (token == TKN_COMP_DIF) {
+    readToken();
+    if (S9(S9_tp, S9_p, S9_c)) {
+      strcpy(S8linS2_h, "int");
+      geratemp(S8linS2_hp);
+      sprintf(S8linS2_hc, "%s%s\t%s = %s != %s\n", S8line_hc, S9_c, S8linS2_hp, S8line_hp, S9_p);
+      if (S8new(S8linS2_h, S8linS2_s, S8linS2_hp, S8linS2_sp, S8linS2_hc, S8linS2_sc)) {
+        strcpy(S8line_s, S8linS2_s);
+        strcpy(S8line_sp, S8linS2_sp);
+        strcpy(S8line_sc, S8linS2_sc);
+        return 1;
+      } else
+        return 0;
+    } else
+      return 0;
+  } else {
+    strcpy(S8line_s, S8line_h);
+    strcpy(S8line_sp, S8line_hp);
+    strcpy(S8line_sc, S8line_hc);
+    return 1;
+  }
+}
+
+int S9(char * S9_tp, char * S9_p, char * S9_c) {
+  char S10_tp[10];
+  char S10_p[10];
+  char S10_c[MAX_COD];
+  char S9line_h[10];
+  char S9line_s[10];
+  char S9line_hp[10];
+  char S9line_sp[10];
+  char S9line_hc[MAX_COD];
+  char S9line_sc[MAX_COD];
+
+  if (S10(S10_tp, S10_p, S10_c)) {
+    strcpy(S9line_h, S10_tp);
+    strcpy(S9line_hp, S10_p);
+    strcpy(S9line_hc, S10_c);
+    if (S9new(S9line_h, S9line_s, S9line_hp, S9line_sp, S9line_hc, S9line_sc)) {
+      strcpy(S9_tp, S9line_s);
+      strcpy(S9_p, S9line_sp);
+      strcpy(S9_c, S9line_sc);
+      return 1;
+    } else
+      return 0;
+  } else
+    return 0;
+}
+
+int S9new(char * S9line_h, char * S9line_s, char * S9line_hp, char * S9line_sp, char * S9line_hc, char * S9line_sc) {
+  char S10_tp[10];
+  char S10_p[10];
+  char S10_c[MAX_COD];
+  char S9linS2_h[10];
+  char S9linS2_s[10];
+  char S9linS2_hp[10];
+  char S9linS2_sp[10];
+  char S9linS2_hc[MAX_COD];
+  char S9linS2_sc[MAX_COD];
+
+  if (token == TKN_COMP_MENOR) {
+    readToken();
+    if (S10(S10_tp, S10_p, S10_c)) {
+      strcpy(S9linS2_h, "int");
+      geratemp(S9linS2_hp);
+      sprintf(S9linS2_hc, "%s%s\t%s = %s < %s\n", S9line_hc, S10_c, S9linS2_hp, S9line_hp, S10_p);
+      if (S9new(S9linS2_h, S9linS2_s, S9linS2_hp, S9linS2_sp, S9linS2_hc, S9linS2_sc)) {
+        strcpy(S9line_s, S9linS2_s);
+        strcpy(S9line_sp, S9linS2_sp);
+        strcpy(S9line_sc, S9linS2_sc);
+        return 1;
+      } else
+        return 0;
+    } else
+      return 0;
+  } else if (token == TKN_COMP_MAIOR) {
+    readToken();
+    if (S10(S10_tp, S10_p, S10_c)) {
+      strcpy(S9linS2_h, "int");
+      geratemp(S9linS2_hp);
+      sprintf(S9linS2_hc, "%s%s\t%s = %s > %s\n", S9line_hc, S10_c, S9linS2_hp, S9line_hp, S10_p);
+      if (S9new(S9linS2_h, S9linS2_s, S9linS2_hp, S9linS2_sp, S9linS2_hc, S9linS2_sc)) {
+        strcpy(S9line_s, S9linS2_s);
+        strcpy(S9line_sp, S9linS2_sp);
+        strcpy(S9line_sc, S9linS2_sc);
+        return 1;
+      } else
+        return 0;
+    } else
+      return 0;
+  } else if (token == TKN_COMP_MENOR_IGUAL) {
+    readToken();
+    if (S10(S10_tp, S10_p, S10_c)) {
+      strcpy(S9linS2_h, "int");
+      geratemp(S9linS2_hp);
+      sprintf(S9linS2_hc, "%s%s\t%s = %s <= %s\n", S9line_hc, S10_c, S9linS2_hp, S9line_hp, S10_p);
+      if (S9new(S9linS2_h, S9linS2_s, S9linS2_hp, S9linS2_sp, S9linS2_hc, S9linS2_sc)) {
+        strcpy(S9line_s, S9linS2_s);
+        strcpy(S9line_sp, S9linS2_sp);
+        strcpy(S9line_sc, S9linS2_sc);
+        return 1;
+      } else
+        return 0;
+    } else
+      return 0;
+  } else if (token == TKN_COMP_MAIOR_IGUAL) {
+    readToken();
+    if (S10(S10_tp, S10_p, S10_c)) {
+      strcpy(S9linS2_h, "int");
+      geratemp(S9linS2_hp);
+      sprintf(S9linS2_hc, "%s%s\t%s = %s >= %s\n", S9line_hc, S10_c, S9linS2_hp, S9line_hp, S10_p);
+      if (S9new(S9linS2_h, S9linS2_s, S9linS2_hp, S9linS2_sp, S9linS2_hc, S9linS2_sc)) {
+        strcpy(S9line_s, S9linS2_s);
+        strcpy(S9line_sp, S9linS2_sp);
+        strcpy(S9line_sc, S9linS2_sc);
+        return 1;
+      } else
+        return 0;
+    } else
+      return 0;
+  } else {
+    strcpy(S9line_s, S9line_h);
+    strcpy(S9line_sp, S9line_hp);
+    strcpy(S9line_sc, S9line_hc);
+    return 1;
+  }
+}
+
+int S10(char * S10_tp, char * S10_p, char * S10_c) {
+  char S11_tp[10];
+  char S11_p[10];
+  char S11_c[MAX_COD];
+  char S10line_h[10];
+  char S10line_s[10];
+  char S10line_hp[10];
+  char S10line_sp[10];
+  char S10line_hc[MAX_COD];
+  char S10line_sc[MAX_COD];
+
+  if (S11(S11_tp, S11_p, S11_c)) {
+    strcpy(S10line_h, S11_tp);
+    strcpy(S10line_hp, S11_p);
+    strcpy(S10line_hc, S11_c);
+    if (S10new(S10line_h, S10line_s, S10line_hp, S10line_sp, S10line_hc, S10line_sc)) {
+      strcpy(S10_tp, S10line_s);
+      strcpy(S10_p, S10line_sp);
+      strcpy(S10_c, S10line_sc);
+      return 1;
+    } else
+      return 0;
+  } else
+    return 0;
+}
+
+int S10new(char * S10line_h, char * S10line_s, char * S10line_hp, char * S10line_sp, char * S10line_hc, char * S10line_sc) {
+  char S11_tp[10];
+  char S11_p[10];
+  char S11_c[MAX_COD];
+  char S10linS2_h[10];
+  char S10linS2_s[10];
+  char S10linS2_hp[10];
+  char S10linS2_sp[10];
+  char S10linS2_hc[MAX_COD];
+  char S10linS2_sc[MAX_COD];
+
+  if (token == TKN_SHIFT_LEFT) {
+    readToken();
+    if (S11(S11_tp, S11_p, S11_c)) {
+      strcpy(S10linS2_h, "int");
+      geratemp(S10linS2_hp);
+      sprintf(S10linS2_hc, "%s%s\t%s = %s << %s\n", S10line_hc, S11_c, S10linS2_hp, S10line_hp, S11_p);
+      if (S10new(S10linS2_h, S10linS2_s, S10linS2_hp, S10linS2_sp, S10linS2_hc, S10linS2_sc)) {
+        strcpy(S10line_s, S10linS2_s);
+        strcpy(S10line_sp, S10linS2_sp);
+        strcpy(S10line_sc, S10linS2_sc);
+        return 1;
+      } else
+        return 0;
+    } else
+      return 0;
+  } else if (token == TKN_SHIFT_RIGHT) {
+    readToken();
+    if (S11(S11_tp, S11_p, S11_c)) {
+      strcpy(S10linS2_h, "int");
+      geratemp(S10linS2_hp);
+      sprintf(S10linS2_hc, "%s%s\t%s = %s >> %s\n", S10line_hc, S11_c, S10linS2_hp, S10line_hp, S11_p);
+      if (S10new(S10linS2_h, S10linS2_s, S10linS2_hp, S10linS2_sp, S10linS2_hc, S10linS2_sc)) {
+        strcpy(S10line_s, S10linS2_s);
+        strcpy(S10line_sp, S10linS2_sp);
+        strcpy(S10line_sc, S10linS2_sc);
+        return 1;
+      } else
+        return 0;
+    } else
+      return 0;
+  } else {
+    strcpy(S10line_s, S10line_h);
+    strcpy(S10line_sp, S10line_hp);
+    strcpy(S10line_sc, S10line_hc);
+    return 1;
+  }
+}
+
+int S11(char * S11_tp, char * S11_p, char * S11_c) {
+  char S12_tp[10];
+  char S12_p[10];
+  char S12_c[MAX_COD];
+  char S11line_h[10];
+  char S11line_s[10];
+  char S11line_hp[10];
+  char S11line_sp[10];
+  char S11line_hc[MAX_COD];
+  char S11line_sc[MAX_COD];
+
+  if (S12(S12_tp, S12_p, S12_c)) {
+    strcpy(S11line_h, S12_tp);
+    strcpy(S11line_hp, S12_p);
+    strcpy(S11line_hc, S12_c);
+    if (S11new(S11line_h, S11line_s, S11line_hp, S11line_sp, S11line_hc, S11line_sc)) {
+      strcpy(S11_tp, S11line_s);
+      strcpy(S11_p, S11line_sp);
+      strcpy(S11_c, S11line_sc);
+      return 1;
+    } else
+      return 0;
+  } else
+    return 0;
+}
+
+int S11new(char * S11line_h, char * S11line_s, char * S11line_hp, char * S11line_sp, char * S11line_hc, char * S11line_sc) {
+  char S12_tp[10];
+  char S12_p[10];
+  char S12_c[MAX_COD];
+  char S11linS2_h[10];
+  char S11linS2_s[10];
+  char S11linS2_hp[10];
+  char S11linS2_sp[10];
+  char S11linS2_hc[MAX_COD];
+  char S11linS2_sc[MAX_COD];
+
+  if (token == TKN_SOMA) {
+    readToken();
+    if (S12(S12_tp, S12_p, S12_c)) {
+      if (!strcmp(S11line_h, "int") && !strcmp(S12_tp, "int"))
+        strcpy(S11linS2_h, "int");
+      else
+        strcpy(S11linS2_h, "float");
+      geratemp(S11linS2_hp);
+      sprintf(S11linS2_hc, "%s%s\t%s = %s + %s\n", S11line_hc, S12_c, S11linS2_hp, S11line_hp, S12_p);
+      if (S11new(S11linS2_h, S11linS2_s, S11linS2_hp, S11linS2_sp, S11linS2_hc, S11linS2_sc)) {
+        strcpy(S11line_s, S11linS2_s);
+        strcpy(S11line_sp, S11linS2_sp);
+        strcpy(S11line_sc, S11linS2_sc);
+        return 1;
+      } else
+        return 0;
+    }
+  } else if (token == TKN_DIMINUI) {
+    readToken();
+    if (S12(S12_tp, S12_p, S12_c)) {
+      if (!strcmp(S11line_h, "int") && !strcmp(S12_tp, "int"))
+        strcpy(S11linS2_h, "int");
+      else
+        strcpy(S11linS2_h, "float");
+      geratemp(S11linS2_hp);
+      sprintf(S11linS2_hc, "%s%s\t%s = %s - %s\n", S11line_hc, S12_c, S11linS2_hp, S11line_hp, S12_p);
+      if (S11new(S11linS2_h, S11linS2_s, S11linS2_hp, S11linS2_sp, S11linS2_hc, S11linS2_sc)) {
+        strcpy(S11line_s, S11linS2_s);
+        strcpy(S11line_sp, S11linS2_sp);
+        strcpy(S11line_sc, S11linS2_sc);
+        return 1;
+      } else
+        return 0;
+    }
+  } else {
+    strcpy(S11line_s, S11line_h);
+    strcpy(S11line_sp, S11line_hp);
+    strcpy(S11line_sc, S11line_hc);
+    return 1;
+  }
+}
+
+int S12(char * S12_tp, char * S12_p, char * S12_c) {
+  char S13_tp[10];
+  char S13_p[10];
+  char S13_c[MAX_COD];
+  char S12line_h[10];
+  char S12line_s[10];
+  char S12line_hp[10];
+  char S12line_sp[10];
+  char S12line_hc[MAX_COD];
+  char S12line_sc[MAX_COD];
+
+  if (S13(S13_tp, S13_p, S13_c)) {
+    strcpy(S12line_h, S13_tp);
+    strcpy(S12line_hp, S13_p);
+    strcpy(S12line_hc, S13_c);
+
+    if (S12new(S12line_h, S12line_s, S12line_hp, S12line_sp, S12line_hc, S12line_sc)) {
+      strcpy(S12_tp, S12line_s);
+      strcpy(S12_p, S12line_sp);
+      strcpy(S12_c, S12line_sc);
+      return 1;
+    } else
+      return 0;
+  } else
+    return 0;
+}
+
+int S12new(char * S12line_h, char * S12line_s, char * S12line_hp, char * S12line_sp, char * S12line_hc, char * S12line_sc) {
+  char S13_tp[10];
+  char S13_p[10];
+  char S13_c[MAX_COD];
+  char S12linS2_h[10];
+  char S12linS2_s[10];
+  char S12linS2_hp[10];
+  char S12linS2_sp[10];
+  char S12linS2_hc[MAX_COD];
+  char S12linS2_sc[MAX_COD];
+
+  if (token == TKN_MULTIPLICA) {
+    readToken();
+    if (S13(S13_tp, S13_p, S13_c)) {
+
+      if (!strcmp(S12line_h, "int") && strcmp(S13_tp, "int"))
+        strcpy(S12linS2_h, "int");
+      else
+        strcpy(S12linS2_h, "float");
+      geratemp(S12linS2_hp);
+      sprintf(S12linS2_hc, "%s%s\t%s = %s * %s\n", S12line_hc, S13_c, S12linS2_hp, S12line_hp, S13_p);
+      if (S12new(S12linS2_h, S12linS2_s, S12linS2_hp, S12linS2_sp, S12linS2_hc, S12linS2_sc)) {
+        strcpy(S12line_s, S12linS2_s);
+        strcpy(S12line_sp, S12linS2_sp);
+        strcpy(S12line_sc, S12linS2_sc);
+        return 1;
+      } else
+        return 0;
+    } else
+      return 0;
+  } else if (token == TKN_DIVIDE) {
+    readToken();
+    if (S13(S13_tp, S13_p, S13_c)) {
+      if (!strcmp(S12line_h, "int") && strcmp(S13_tp, "int"))
+        strcpy(S12linS2_h, "int");
+      else
+        strcpy(S12linS2_h, "float");
+      geratemp(S12linS2_hp);
+      sprintf(S12linS2_hc, "%s%s\t%s = %s / %s\n", S12line_hc, S13_c, S12linS2_hp, S12line_hp, S13_p);
+      if (S12new(S12linS2_h, S12linS2_s, S12linS2_hp, S12linS2_sp, S12linS2_hc, S12linS2_sc)) {
+        strcpy(S12line_s, S12linS2_s);
+        strcpy(S12line_sp, S12linS2_sp);
+        strcpy(S12line_sc, S12linS2_sc);
+        return 1;
+      } else
+        return 0;
+    } else
+      return 0;
+  } else if (token == TKN_RESTO_DIVISAO) {
+    readToken();
+    if (S13(S13_tp, S13_p, S13_c)) {
+      if (!strcmp(S12line_h, "int") && !strcmp(S13_tp, "int"))
+        strcpy(S12linS2_h, "int");
+      else {
+        printf("An error occurred. >> % << invalid");
+        exit(0);
+      }
+      geratemp(S12linS2_hp);
+      sprintf(S12linS2_hc, "%s%s\t%s = %s %c %s\n", S12line_hc, S13_c, S12linS2_hp, S12line_hp, 37, S13_p);
+      if (S12new(S12linS2_h, S12linS2_s, S12linS2_hp, S12linS2_sp, S12linS2_hc, S12linS2_sc)) {
+        strcpy(S12line_s, S12linS2_s);
+        strcpy(S12line_sp, S12linS2_sp);
+        strcpy(S12line_sc, S12linS2_sc);
+        return 1;
+      } else
+        return 0;
+    } else
+      return 0;
+  } else {
+    strcpy(S12line_s, S12line_h);
+    strcpy(S12line_sp, S12line_hp);
+    strcpy(S12line_sc, S12line_hc);
+    return 1;
+  }
+}
+
+int S13(char * S13_tp, char * S13_p, char * S13_c) {
+  char S14_tp[10];
+  char S14_p[10];
+  char S14_c[MAX_COD];
+  char S13line_tp[10];
+  char S13line_h[10];
+  char S13line_s[10];
+
+  if (S14(S14_tp, S14_p, S14_c)) {
+    if (token == TKN_DIMINUI) {
+      strcpy(S13line_h, S14_tp);
+      readToken();
+      if (S13(S13line_tp, S13line_h, S13line_s)) {
+        strcpy(S13_tp, S13line_s);
+        return 1;
+      } else
+        return 0;
+    } else if (token == TKN_INCREMENT) {
+      strcpy(S13line_h, S14_tp);
+      readToken();
+
+      strcpy(S13_tp, S13line_s);
+      return 1;
+    } else if (token == TKN_DECREMENT) {
+      strcpy(S13line_h, S14_tp);
+      readToken();
+
+      strcpy(S13_tp, S13line_s);
+      return 1;
+    } else if (token == TKN_NEGACAO) {
+      strcpy(S13line_h, S14_tp);
+      readToken();
+      if (S13(S13line_tp, S13line_h, S13line_s)) {
+        strcpy(S13_tp, S13line_s);
+        return 1;
+      } else
+        return 0;
+    } else {
+      strcpy(S13_tp, S14_tp);
+      strcpy(S13_p, S14_p);
+      strcpy(S13_c, S14_c);
+      return 1;
+    }
+  }
+  return 0;
+}
+
+int S14(char * S14_tp, char * S14_p, char * S14_c) {
+  char E_tp[10];
+
+  if (token == TKN_CONST_INT) {
+    strcpy(S14_tp, "int");
+    geratemp(S14_p);
+    sprintf(S14_c, "\t%s = %s\n", S14_p, lex);
+    readToken();
+    return 1;
+  } else if (token == TKN_CONST_FLOAT) {
+    strcpy(S14_tp, "float");
+    geratemp(S14_p);
+    sprintf(S14_c, "\t%s = %s\n", S14_p, lex);
+    readToken();
+    return 1;
+  } else if (token == TKN_ID) {
+    whatTypeIsIt(lex, S14_tp, ts);
+    if (strcmp(S14_tp, "int") && strcmp(S14_tp, "float")) {
+      printf("An error occurred. Variavel %s nao foi declarada\n", lex);
+      exit(0);
+    }
+    strcpy(S14_p, lex);
+    strcpy(S14_c, "");
+
+    readToken();
+    if (RE())
+      return 1;
+    else
+      return 0;
+  } else if (token == TKN_CHAR) {
+    strcpy(S14_tp, "char");
+    geratemp(S14_p);
+    sprintf(S14_c, "\t%s = %s\n", S14_p, lex);
+    readToken();
+    return 1;
+  } else if (token == TKN_A_PAR) {
+    char E_p[MAX_COD], E_c[MAX_COD];
+    readToken();
+    if (E(E_tp, E_p, E_c)) {
+      if (token == TKN_F_PAR) {
+        readToken();
+        strcpy(S14_c, E_c);
+        strcpy(S14_p, E_p);
+        return 1;
+      } else
+        return 0;
+    } else
+      return 0;
+  } else
+    return 0;
+}
+
+int main() {
+  setbuf(stdout, NULL);
+
+  char character;
+  char lex[20];
+  char file[20];
+  char content[20000];
+  char PROGC_c[MAX_COD];
+  int choice = 0;
+  ts = NULL;
+  FILE * font;
+
+  setbuf(stdout, NULL);
+
+  int i = 0;
+  do {
+    do {
+      printf("************************************************\n");
+      printf("************************************************\n");
+      printf("***** S E M A N T I C      A N A L Y S I S *****\n");
+      printf("************************************************\n");
+      printf("************************************************\n");
+      printf("******** 1 - Erro_Continue			    	  \n");
+      printf("******** 2 - Erro_Break				    	  \n");
+      printf("******** 3 - Erro_Type_Incompativel       	  \n");
+      printf("******** 4 - Erro_Variavel_Duplicada	    	  \n");
+      printf("******** 5 - Erro_Variavel_Nao_Declarada  	  \n");
+      printf("******** 6 - Teste_Erro				          \n");
+      printf("******** 7 - Teste_Ok					    	  \n");
+      printf("************************************************\n");
+      printf("************************************************\n");
+      printf("************************************************\n");
+      printf("************************************************\n");
+      scanf("%d", & choice);
+      fflush(stdin);
+
+      if ((choice < 0) || (choice > 7)) {
+        printf("Invalid option, select an option between 1 and 7! \n");
+        system("pause");
+      }
+      switch (choice) {
+      case 1:
+        strcpy(file, "Error_Continue.txt");
+        choice = 0;
+        break;
+      case 2:
+        strcpy(file, "Error_Break.txt");
+        choice = 0;
+        break;
+      case 3:
+        strcpy(file, "Error_Type_Incompativel.txt");
+        choice = 0;
+        break;
+      case 4:
+        strcpy(file, "Error_Variavel_Duplicada.txt");
+        choice = 0;
+        break;
+      case 5:
+        strcpy(file, "Error_Variavel_Nao_Declarada.txt");
+        choice = 0;
+        break;
+      case 6:
+        strcpy(file, "Teste_Erro.txt");
+        choice = 0;
+        break;
+      case 7:
+        strcpy(file, "Teste_Ok.txt");
+        choice = 0;
+        break;
+
+      }
+    } while ((choice < 0) || (choice > 7));
+  } while (choice != 0);
+
+  if ((font = fopen(file, "r")) == NULL) {
+    printf("Error opening file.\n");
+    exit(1);
+  }
+
+  while (1) {
+    character = fgetc(font);
+    if (feof(font))
+      break;
+    if (character != 9 && character != 10 && character != 13) {
+      content[i++] = character;
+    } else if (character == 10) {
+      content[i++] = 127;
+    } else if (character == 9) {
+      content[i++] = 9;
+    }
+  }
+  content[i] = '\0';
+
+  for (i = 0; i < 1000; i++) {
+    TKsParser[i] = -1;
+  }
+
+  while ((token = analizeTokens(content, lex)) != -1) {
+    char lineSt[3];
+    char columnSt[3];
+    column = positionCol - subcolumn;
+
+    snprintf(lineSt, sizeof(lineSt), "%d", line);
+    snprintf(columnSt, sizeof(columnSt), "%d", column);
+
+    TKsParser[posParser++] = token;
+    TKsParser[posParser++] = line;
+    TKsParser[posParser++] = column;
+    strcpy(TKsParserLex[posParserLex++], lex);
+  }
+
+  fclose(font);
+  posParser = 0;
+  posParserLex = 0;
+  readToken();
+
+  if (PROGC(PROGC_c)) {
+    printf("%s", PROGC_c);
+    printf("Semantic analysis finished succesfully\n");
+    getchar();
+  } else {
+    printf("Errors occurred during semantic analysis\n");
+    getchar();
+  }
+  return 0;
 }
