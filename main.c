@@ -332,7 +332,7 @@ int analizeTokens(char st[], char lex[]) {
           previousState = 0;
           return TKN_OR;
         }
-        return TKN_ERROR_OU;
+        return TKN_LOGICAL_OR;
       }
 
       if (c == '&') {
@@ -345,7 +345,7 @@ int analizeTokens(char st[], char lex[]) {
           previousState = 0;
           return TKN_AND;
         }
-        return TKN_ERROR_AND;
+        return TKN_LOGICAL_AND;
       }
 
       if (c == '>') {
@@ -2461,8 +2461,6 @@ int main() {
     printf("Errors occurred during semantic analysis\n");
 
     remove("saida.txt");
-
-    getchar();
   }
 
 
